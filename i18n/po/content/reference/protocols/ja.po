@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: clojure-site-ja 0.0.1\n"
 "POT-Creation-Date: 2016-06-27 08:47+0900\n"
-"PO-Revision-Date: 2016-06-27 08:47+0900\n"
+"PO-Revision-Date: 2016-09-16 09:12+0900\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: ja\n"
@@ -55,7 +55,7 @@ msgstr "toc::[]"
 #: en/content/reference/datatypes.adoc:17 en/content/reference/protocols.adoc:16
 #, no-wrap
 msgid "Motivation"
-msgstr ""
+msgstr "動機づけ"
 
 #. type: Plain text
 #: en/content/reference/datatypes.adoc:20 en/content/reference/protocols.adoc:19
@@ -67,28 +67,33 @@ msgid ""
 "<<datatypes#,datatypes>> features add powerful and flexible mechanisms for abstraction and data structure definition "
 "with no compromises vs the facilities of the host platform."
 msgstr ""
+"Clojureは抽象に基づいて記述されている。シーケンス、コレクション、呼び出し可能性等の抽象が存在する。加えて、Clojureはこ"
+"れらの抽象の様々な実装を提供している。抽象はホストのインターフェース、実装はホストのクラスによって定義される。言語の"
+"ブートストラップにはこれで十分だったが、Clojureにおいて似たような抽象可、低レベルな実装の機構を欠いた状態だった。"
+"<<protocols#,protocols>> と <<datatypes#,datatypes>> の機能は強力で柔軟な、ホストプラットフォームに対して妥協をするこ"
+"とのない、抽象化とデータ構造定義を提供する。"
 
 #. type: Title ==
 #: en/content/reference/datatypes.adoc:21 en/content/reference/protocols.adoc:36 en/content/about/dynamic.adoc:42
 #, no-wrap
 msgid "Basics"
-msgstr ""
+msgstr "基礎"
 
 #. type: Title =
 #: en/content/reference/protocols.adoc:1
 #, no-wrap
 msgid "Protocols"
-msgstr ""
+msgstr "Protocol (プロトコル)"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:21
 msgid "There are several motivations for protocols:"
-msgstr ""
+msgstr "プロトコルにはいくつかの動機がある:"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:23
 msgid "Provide a high-performance, dynamic polymorphism construct as an alternative to interfaces"
-msgstr ""
+msgstr "インターフェースに代わる、高パフォーマンスな動的ポリモーフィズムを提供する。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:26
@@ -96,6 +101,8 @@ msgid ""
 "Support the best parts of interfaces ** specification only, no implementation ** a single type can implement multiple "
 "protocols"
 msgstr ""
+"インターフェースの良いところだけをサポートする。 ** 仕様のみ指定し、実装は指定しない ** 単一のデータ型が複数のプロトコ"
+"ルを実装することができる"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:29
@@ -104,6 +111,9 @@ msgid ""
 "cannot be extended later (although interface injection might eventually address this)  ** implementing an interface "
 "creates an isa/instanceof type relationship and hierarchy"
 msgstr ""
+"と同時にいくつかのデメリットを避ける ** どのインターフェースを実装するかは、作者の設計段階での判断であり、後から拡張す"
+"ることが出来ない (将来、インターフェースインジェクションがこれに対する解決策になる可能性がある)  ** インターフェースを"
+"実装することで isa/instanceof のような関係性とヒエラルキーが作成される"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:31
@@ -111,17 +121,19 @@ msgid ""
 "Avoid the 'expression problem' by allowing independent extension of the set of types, protocols, and implementations "
 "of protocols on types, by different parties ** do so without wrappers/adapters"
 msgstr ""
+"異なる提供元による型、プロトコル、型の上のプロトコルの実装の独立した拡張を許可することにより、 'expression problem' "
+"** ラッパー/アダプター等を使用することなく避ける。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:32
 msgid ""
 "Support the 90% case of multimethods (single dispatch on type) while providing higher-level abstraction/organization"
-msgstr ""
+msgstr "マルチメソッドの90%のケース(型に基づく単一ディスパッチ)をサポートすると同時に、高度な抽象化/構成を提供する"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:35
 msgid "Protocols were introduced in Clojure 1.2."
-msgstr ""
+msgstr "プロトコルはClojure 1.2で導入された。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:39
@@ -139,11 +151,15 @@ msgid ""
 "  (bar [a b] \"bar docs\")\n"
 "  (baz [a] [a b] [a b c] \"baz docs\"))\n"
 msgstr ""
+"(defprotocol AProtocol\n"
+"  \"A doc string for AProtocol abstraction\"\n"
+"  (bar [a b] \"bar docs\")\n"
+"  (baz [a] [a b] [a b c] \"baz docs\"))\n"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:49
 msgid "No implementations are provided"
-msgstr ""
+msgstr "実装は定義されていない"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:50
@@ -192,6 +208,9 @@ msgid ""
 "  (foo [x])\n"
 "  (bar-me [x] [x y]))\n"
 msgstr ""
+"(defprotocol P\n"
+"  (foo [x])\n"
+"  (bar-me [x] [x y]))\n"
 
 #. type: delimited block -
 #: en/content/reference/protocols.adoc:70
@@ -203,18 +222,23 @@ msgid ""
 "  (bar-me [x] b)\n"
 "  (bar-me [x y] (+ c y)))\n"
 msgstr ""
+"(deftype Foo [a b c]\n"
+"  P\n"
+"  (foo [x] a)\n"
+"  (bar-me [x] b)\n"
+"  (bar-me [x y] (+ c y)))\n"
 
 #. type: delimited block -
 #: en/content/reference/protocols.adoc:72
 #, no-wrap
 msgid "(bar-me (Foo. 1 2 3) 42)\n"
-msgstr ""
+msgstr "(bar-me (Foo. 1 2 3) 42)\n"
 
 #. type: Title =
 #: en/content/reference/protocols.adoc:72
 #, no-wrap
 msgid "> 45"
-msgstr ""
+msgstr "> 45"
 
 #. type: delimited block -
 #: en/content/reference/protocols.adoc:80
@@ -227,12 +251,18 @@ msgid ""
 "     (bar-me [this] x)\n"
 "     (bar-me [this y] x))))\n"
 msgstr ""
+"(foo\n"
+" (let [x 42]\n"
+"   (reify P\n"
+"     (foo [this] 17)\n"
+"     (bar-me [this] x)\n"
+"     (bar-me [this y] x))))\n"
 
 #. type: delimited block -
 #: en/content/reference/protocols.adoc:82
 #, no-wrap
 msgid "> 17\n"
-msgstr ""
+msgstr "> 17\n"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:85
@@ -262,6 +292,14 @@ msgid ""
 "    {...}\n"
 "...)\n"
 msgstr ""
+"(extend AType\n"
+"  AProtocol\n"
+"   {:foo an-existing-fn\n"
+"    :bar (fn [a b] ...)\n"
+"    :baz (fn ([a]...) ([a b] ...)...)}\n"
+"  BProtocol\n"
+"    {...}\n"
+"...)\n"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:101
@@ -281,6 +319,8 @@ msgid ""
 "Function maps are maps of the keywordized method names to ordinary fns ** this facilitates easy reuse of existing fns "
 "and maps, for code reuse/mixins without derivation or composition"
 msgstr ""
+"関数マップはキーワード化されたメソッド名から通常のfnのマップで、 ** 継承や合成に頼ることなく、既存の関数とマップの再利"
+"用やミックスインを簡単にする。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:110
@@ -290,21 +330,25 @@ msgid ""
 "one interface, both of which implement the protocol *** if one interface is derived from the other, the more derived "
 "is used, else which one is used is unspecified."
 msgstr ""
+"インターフェースに対してプロトコルを定義することが出来、 ** これは主にホスト(例: Java)との連携を簡単にするためのものだ"
+"が ** 偶発的に実装の多重継承の可能性をもたらす *** クラスは複数のインターフェースから継承することが出来るため、継承す"
+"るインターフェースが同じプロトコルを実装する場合、 *** インターフェース間に継承関係があれば派生している方が使用され、"
+"それ以外の動作場合は定義されない。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:111
 msgid "The implementing fn can presume first argument is instanceof AType"
-msgstr ""
+msgstr "実装のfnは最初の引数がAtypeのインスタンスであるとみなす。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:112
 msgid "You can implement a protocol on _**nil**_"
-msgstr ""
+msgstr "_**nil**_ に対してもプロトコルを定義することが出来る。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:113
 msgid "To define a default implementation of protocol (for other than nil) just use Object"
-msgstr ""
+msgstr "プロトコルのデフォルトの実装(nil以外)を定義したい場合は、Objectを使用すれば良い。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:115
@@ -314,6 +358,9 @@ msgid ""
 "extenders[extenders] , and http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/satisfies"
 "%3F[satisfies?] ."
 msgstr ""
+"プロトコルは完全に具体化され、リフレクションを http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
+"extends%3F[extends?] 、 http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extenders[extenders] 、及"
+"び http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/satisfies%3F[satisfies?] でサポートする。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:117
@@ -321,11 +368,13 @@ msgid ""
 "Note the convenience macros http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend-type[extend-"
 "type] , and http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend-protocol[extend-protocol]"
 msgstr ""
+"便利なマクロ http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend-type[extend-type] と http://"
+"clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend-protocol[extend-protocol] も注目しておくと良い。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:118
 msgid "If you are providing external definitions inline, these will be more convenient than using *extend* directly"
-msgstr ""
+msgstr "*extend* を直接使うよりも、インラインで外部の定義を書く方が便利である。"
 
 #. type: delimited block -
 #: en/content/reference/protocols.adoc:127
@@ -338,12 +387,18 @@ msgid ""
 "    (bar [x y] ...)\n"
 "    (baz ([x] ...) ([x y zs] ...)))\n"
 msgstr ""
+"(extend-type MyType\n"
+"  Countable\n"
+"    (cnt [c] ...)\n"
+"  Foo\n"
+"    (bar [x y] ...)\n"
+"    (baz ([x] ...) ([x y zs] ...)))\n"
 
 #. type: delimited block -
 #: en/content/reference/protocols.adoc:129
 #, no-wrap
 msgid "  ;expands into:\n"
-msgstr ""
+msgstr "  ;以下のように展開される:\n"
 
 #. type: delimited block -
 #: en/content/reference/protocols.adoc:136
@@ -356,3 +411,9 @@ msgid ""
 "   {:baz (fn ([x] ...) ([x y zs] ...))\n"
 "    :bar (fn [x y] ...)})\n"
 msgstr ""
+"(extend MyType\n"
+"  Countable\n"
+"   {:cnt (fn [c] ...)}\n"
+"  Foo\n"
+"   {:baz (fn ([x] ...) ([x y zs] ...))\n"
+"    :bar (fn [x y] ...)})\n"
