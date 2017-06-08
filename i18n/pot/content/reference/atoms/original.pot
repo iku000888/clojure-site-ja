@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: clojure-site-ja 0.0.1\n"
-"POT-Creation-Date: 2016-06-27 08:47+0900\n"
+"POT-Creation-Date: 2017-06-01 09:26+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. type: Plain text
+#: en/content/reference/metadata.adoc:4 en/content/reference/protocols.adoc:4
+#: en/content/reference/sequences.adoc:4
+#: en/content/reference/multimethods.adoc:4 en/content/reference/libs.adoc:4
+#: en/content/reference/transients.adoc:4
+#: en/content/reference/compilation.adoc:4
+#: en/content/reference/other_libraries.adoc:4
+#: en/content/reference/documentation.adoc:4 en/content/reference/macros.adoc:4
+#: en/content/reference/transducers.adoc:4 en/content/reference/refs.adoc:4
+#: en/content/reference/lazy.adoc:4 en/content/reference/namespaces.adoc:4
+#: en/content/reference/lisps.adoc:4 en/content/reference/evaluation.adoc:4
+#: en/content/reference/other_functions.adoc:4
+#: en/content/reference/reducers.adoc:4
+#: en/content/reference/data_structures.adoc:4
+#: en/content/reference/atoms.adoc:4 en/content/reference/repl_and_main.adoc:4
+#: en/content/reference/agents.adoc:4 en/content/reference/datatypes.adoc:4
+#: en/content/community/libraries.adoc:4 en/content/community/license.adoc:4
+#: en/content/community/downloads_older.adoc:4
+#: en/content/community/downloads.adoc:4 en/content/community/swag.adoc:4
+#: en/content/404.adoc:4 en/content/privacy.adoc:4 en/content/search.adoc:4
+#: en/content/about/spec.adoc:4 en/content/about/concurrent_programming.adoc:4
+#: en/content/about/lisp.adoc:4 en/content/about/jvm_hosted.adoc:4
+#: en/content/about/runtime_polymorphism.adoc:4 en/content/about/dynamic.adoc:4
+#: en/content/about/features.adoc:4 en/content/about/rationale.adoc:4
+#: en/content/about/state.adoc:4 en/content/about/clojurescript.adoc:4
+#: en/content/about/functional_programming.adoc:4
+#: en/content/about/clojureclr.adoc:4
+msgid "Rich Hickey 2015-01-01"
+msgstr ""
+
+#. type: Plain text
 #: en/content/reference/atoms.adoc:1
 #: en/content/news/2011/07/22/introducing-clojurescript.adoc:39
 #, no-wrap
@@ -24,46 +54,16 @@ msgid "Atoms"
 msgstr ""
 
 #. type: Plain text
-#: en/content/reference/atoms.adoc:4 en/content/reference/sequences.adoc:4
-#: en/content/reference/metadata.adoc:4 en/content/reference/evaluation.adoc:4
-#: en/content/reference/transients.adoc:4 en/content/reference/macros.adoc:4
-#: en/content/reference/documentation.adoc:4 en/content/reference/refs.adoc:4
-#: en/content/reference/compilation.adoc:4
-#: en/content/reference/other_functions.adoc:4
-#: en/content/reference/other_libraries.adoc:4
-#: en/content/reference/data_structures.adoc:4
-#: en/content/reference/datatypes.adoc:4 en/content/reference/agents.adoc:4
-#: en/content/reference/protocols.adoc:4 en/content/reference/reducers.adoc:4
-#: en/content/reference/lisps.adoc:4 en/content/reference/lazy.adoc:4
-#: en/content/reference/repl_and_main.adoc:4
-#: en/content/reference/transducers.adoc:4
-#: en/content/reference/namespaces.adoc:4 en/content/reference/libs.adoc:4
-#: en/content/reference/multimethods.adoc:4 en/content/search.adoc:4
-#: en/content/about/clojureclr.adoc:4
-#: en/content/about/functional_programming.adoc:4 en/content/about/lisp.adoc:4
-#: en/content/about/features.adoc:4 en/content/about/dynamic.adoc:4
-#: en/content/about/concurrent_programming.adoc:4 en/content/about/spec.adoc:4
-#: en/content/about/rationale.adoc:4 en/content/about/state.adoc:4
-#: en/content/about/clojurescript.adoc:4 en/content/about/jvm_hosted.adoc:4
-#: en/content/about/runtime_polymorphism.adoc:4 en/content/404.adoc:4
-#: en/content/privacy.adoc:4 en/content/community/swag.adoc:4
-#: en/content/community/downloads.adoc:4 en/content/community/license.adoc:4
-#: en/content/community/downloads_older.adoc:4
-#: en/content/community/libraries.adoc:4
-msgid "Rich Hickey 2015-01-01"
-msgstr ""
-
-#. type: Plain text
 #: en/content/reference/atoms.adoc:15
 msgid ""
 "Atoms provide a way to manage shared, synchronous, independent state. They "
-"are a reference type like refs and vars. You create an atom with http://"
+"are a reference type like refs and vars. You create an atom with https://"
 "clojure.github.io/clojure/clojure.core-api.html#clojure.core/atom[atom], and "
-"can access its state with http://clojure.github.io/clojure/clojure.core-api."
+"can access its state with https://clojure.github.io/clojure/clojure.core-api."
 "html#clojure.core/deref[deref/@]. Like refs and agents, atoms support "
-"validators. To change the value of an atom, you can use http://clojure."
+"validators. To change the value of an atom, you can use https://clojure."
 "github.io/clojure/clojure.core-api.html#clojure.core/swap![swap!]. A lower-"
-"level http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
+"level https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
 "compare-and-set![compare-and-set!] is also provided. Changes to atoms are "
 "always free of race conditions."
 msgstr ""
@@ -74,10 +74,10 @@ msgid ""
 "As with all reference types, the intended use of atom is to hold one of "
 "Clojure's immutable data structures. And, similar to ref's alter and agent's "
 "send, you change the value by applying a function to the old value. This is "
-"done in an atomic manner by http://clojure.github.io/clojure/clojure.core-"
-"api.html#clojure.core/swap![swap!] Internally, http://clojure.github.io/"
+"done in an atomic manner by https://clojure.github.io/clojure/clojure.core-"
+"api.html#clojure.core/swap![swap!] Internally, https://clojure.github.io/"
 "clojure/clojure.core-api.html#clojure.core/swap![swap!] reads the current "
-"value, applies the function to it, and attempts to compare-and-set it in. "
+"value, applies the function to it, and attempts to compare-and-set! it in. "
 "Since another thread may have changed the value in the intervening time, it "
 "may have to retry, and does so in a spin loop. The net effect is that the "
 "value will always be the result of the application of the supplied function "
