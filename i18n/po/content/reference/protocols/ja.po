@@ -95,7 +95,7 @@ msgid ""
 "Support the best parts of interfaces ** specification only, no implementation ** a single type can implement multiple "
 "protocols"
 msgstr ""
-"インターフェースの良いところだけをサポートする。 ** 仕様をのみ指定し、実装は指定しない ** 単一のデータ型が複数のプロト"
+"インターフェースの良いところだけをサポートする。 ** 仕様のみを指定し、実装は指定しない ** 単一のデータ型が複数のプロト"
 "コルを実装することができる"
 
 #. type: Plain text
