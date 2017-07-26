@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: clojure-site-ja 0.0.1\n"
-"POT-Creation-Date: 2016-06-27 08:47+0900\n"
+"POT-Creation-Date: 2017-06-01 09:26+0900\n"
 "PO-Revision-Date: 2017-07-26 15:27+0900\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -79,19 +79,6 @@ msgstr ""
 "<<protocols#,protocols>> と <<datatypes#,datatypes>> の機能は強力で柔軟な、ホストプラットフォームに対して妥協をするこ"
 "とのない、抽象化とデータ構造定義を提供する。"
 
-
-#. type: Title ==
-#: en/content/reference/datatypes.adoc:21 en/content/reference/protocols.adoc:36 en/content/about/dynamic.adoc:42
-#, no-wrap
-msgid "Basics"
-msgstr "基礎"
-
-#. type: Title =
-#: en/content/reference/protocols.adoc:1
-#, no-wrap
-msgid "Protocols"
-msgstr "Protocol(プロトコル)"
-
 #. type: Plain text
 #: en/content/reference/protocols.adoc:21
 msgid "There are several motivations for protocols:"
@@ -107,7 +94,9 @@ msgstr "インターフェースに代わる、高パフォーマンスな動的
 msgid ""
 "Support the best parts of interfaces ** specification only, no implementation ** a single type can implement multiple "
 "protocols"
-msgstr "インターフェースの良いところだけをサポートする。 ** 仕様をのみ指定し、実装は指定しない ** 単一のデータ型が複数のプロトコルを実装することができる"
+msgstr ""
+"インターフェースの良いところだけをサポートする。 ** 仕様をのみ指定し、実装は指定しない ** 単一のデータ型が複数のプロト"
+"コルを実装することができる"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:29
@@ -115,14 +104,19 @@ msgid ""
 "While avoiding some of the drawbacks ** Which interfaces are implemented is a design-time choice of the type author, "
 "cannot be extended later (although interface injection might eventually address this)  ** implementing an interface "
 "creates an isa/instanceof type relationship and hierarchy"
-msgstr "と同時にいくつかのデメリットを避ける ** どのインターフェースを実装するかは、作者の設計段階での判断であり、後から拡張することが出来ない(将来、インターフェースインジェクションがこれに対する解決策になる可能性はある)  ** インターフェースを実装することで isa/instanceof のような関係性とヒエラルキーが作成される"
+msgstr ""
+"と同時にいくつかのデメリットを避ける ** どのインターフェースを実装するかは、作者の設計段階での判断であり、後から拡張す"
+"ることが出来ない(将来、インターフェースインジェクションがこれに対する解決策になる可能性はある)  ** インターフェースを"
+"実装することで isa/instanceof のような関係性とヒエラルキーが作成される"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:31
 msgid ""
 "Avoid the 'expression problem' by allowing independent extension of the set of types, protocols, and implementations "
 "of protocols on types, by different parties ** do so without wrappers/adapters"
-msgstr "異なる提供元による型、プロトコル、型の上のプロトコルの実装の独立した拡張を許可することにより、'expression problem' ** ラッパー/アダプター等を使用することなく避ける。"
+msgstr ""
+"異なる提供元による型、プロトコル、型の上のプロトコルの実装の独立した拡張を許可することにより、'expression problem' ** "
+"ラッパー/アダプター等を使用することなく避ける。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:32
@@ -146,7 +140,9 @@ msgstr "基本"
 msgid ""
 "A protocol is a named set of named methods and their signatures, defined using https://clojure.github.io/clojure/"
 "clojure.core-api.html#clojure.core/defprotocol[defprotocol]:"
-msgstr "プロトコルは https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defprotocol[defprotocol]を使用して定義される、名前のついたメソッドとシグネチャーの集合である:"
+msgstr ""
+"プロトコルは https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defprotocol[defprotocol]を使用して定"
+"義される、名前のついたメソッドとシグネチャーの集合である:"
 
 #. type: delimited block -
 #: en/content/reference/protocols.adoc:46
@@ -177,7 +173,9 @@ msgstr "プロトコルと関数にDocを指定することができる"
 msgid ""
 "The above yields a set of polymorphic functions and a protocol object ** all are namespace-qualified by the namespace "
 "enclosing the definition"
-msgstr "上記はポリモーフィックな関数と、プロトコルオブジェクトを生成する。 ** プロトコルは全てプロトコルの定義を含む名前空間で修飾される。"
+msgstr ""
+"上記はポリモーフィックな関数と、プロトコルオブジェクトを生成する。 ** プロトコルは全てプロトコルの定義を含む名前空間で"
+"修飾される。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:53
@@ -196,7 +194,10 @@ msgid ""
 "generate a corresponding interface, with the same name as the protocol, e.g. given a protocol my.ns/Protocol, an "
 "interface my.ns.Protocol. The interface will have methods corresponding to the protocol functions, and the protocol "
 "will automatically work with instances of the interface."
-msgstr "https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defprotocol[defprotocol]は自動的にプロトコルと同じ名前のインターフェースを生成する。e.g my.ns/Protocolからはmy.ns.Protocolが生成される。このインターフェースはプロトコル関数に対応するメソッドを持ち、プロトコルはこのインターフェースのインスタンスと自動的に協調動作する。"
+msgstr ""
+"https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defprotocol[defprotocol]は自動的にプロトコルと同"
+"じ名前のインターフェースを生成する。e.g my.ns/Protocolからはmy.ns.Protocolが生成される。このインターフェースはプロトコ"
+"ル関数に対応するメソッドを持ち、プロトコルはこのインターフェースのインスタンスと自動的に協調動作する。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:58
@@ -205,7 +206,11 @@ msgid ""
 "core/deftype[deftype] , https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defrecord[defrecord] , "
 "or https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/reify[reify], as they support protocols "
 "directly:"
-msgstr "https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/deftype[deftype]、https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defrecord[defrecord]、もしくはhttps://clojure.github.io/clojure/clojure.core-api.html#clojure.core/reify[reify]はプロトコルを直接サポートしているため生成されるインターフェースを利用する必要は無い:"
+msgstr ""
+"https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/deftype[deftype]、https://clojure.github.io/"
+"clojure/clojure.core-api.html#clojure.core/defrecord[defrecord]、もしくはhttps://clojure.github.io/clojure/clojure."
+"core-api.html#clojure.core/reify[reify]はプロトコルを直接サポートしているため生成されるインターフェースを利用する必要"
+"は無い:"
 
 #. type: delimited block -
 #: en/content/reference/protocols.adoc:64
@@ -276,7 +281,9 @@ msgstr "> 17\n"
 msgid ""
 "A Java client looking to participate in the protocol can do so most efficiently by implementing the protocol-"
 "generated interface."
-msgstr "プロトコルに参加したいJavaクライアントは、プロトコルによって生成されるインターフェースを実装することで効率よくプロトコルに参加することができる。"
+msgstr ""
+"プロトコルに参加したいJavaクライアントは、プロトコルによって生成されるインターフェースを実装することで効率よくプロトコ"
+"ルに参加することができる。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:87
@@ -284,7 +291,9 @@ msgid ""
 "External implementations of the protocol (which are needed when you want a class or type not in your control to "
 "participate in the protocol) can be provided using the https://clojure.github.io/clojure/clojure.core-api."
 "html#clojure.core/extend[extend] construct:"
-msgstr "プロトコルはthe https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend[extend]機能を使用することで外部から実装を追加する(自分がコントロールしないクラスや型をプロトコルに参加させるためには必要となる)ことができる:\n"
+msgstr ""
+"プロトコルはthe https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend[extend]機能を使用すること"
+"で外部から実装を追加する(自分がコントロールしないクラスや型をプロトコルに参加させるためには必要となる)ことができる:\n"
 
 #. type: delimited block -
 #: en/content/reference/protocols.adoc:98
@@ -311,7 +320,8 @@ msgstr ""
 #. type: Plain text
 #: en/content/reference/protocols.adoc:101
 msgid "extend takes a type/class (or interface, see below), a one or more protocol + function map (evaluated) pairs."
-msgstr "extendは型/クラス(もしくはインターフェース、下記参照)と一つ以上のプロトコル+関数マップ(評価済み)のペアを受け取る。"
+msgstr ""
+"extendは型/クラス(もしくはインターフェース、下記参照)と一つ以上のプロトコル+関数マップ(評価済み)のペアを受け取る。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:103
@@ -374,7 +384,9 @@ msgstr ""
 msgid ""
 "Note the convenience macros https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend-type[extend-"
 "type] , and https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend-protocol[extend-protocol]"
-msgstr "便利なマクロ http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend-type[extend-type]と http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend-protocol[extend-protocol] 知っておくと良い。"
+msgstr ""
+"便利なマクロ http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend-type[extend-type]と http://"
+"clojure.github.io/clojure/clojure.core-api.html#clojure.core/extend-protocol[extend-protocol] 知っておくと良い。"
 
 #. type: Plain text
 #: en/content/reference/protocols.adoc:118
