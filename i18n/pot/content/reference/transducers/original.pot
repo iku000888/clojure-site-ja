@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: clojure-site-ja 0.0.1\n"
-"POT-Creation-Date: 2016-06-27 08:47+0900\n"
+"POT-Creation-Date: 2017-06-01 09:26+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,63 +17,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. type: Plain text
-#: en/content/reference/atoms.adoc:4 en/content/reference/sequences.adoc:4
-#: en/content/reference/metadata.adoc:4 en/content/reference/evaluation.adoc:4
-#: en/content/reference/transients.adoc:4 en/content/reference/macros.adoc:4
-#: en/content/reference/documentation.adoc:4 en/content/reference/refs.adoc:4
+#: en/content/reference/metadata.adoc:4 en/content/reference/protocols.adoc:4
+#: en/content/reference/sequences.adoc:4
+#: en/content/reference/multimethods.adoc:4 en/content/reference/libs.adoc:4
+#: en/content/reference/transients.adoc:4
 #: en/content/reference/compilation.adoc:4
-#: en/content/reference/other_functions.adoc:4
 #: en/content/reference/other_libraries.adoc:4
+#: en/content/reference/documentation.adoc:4 en/content/reference/macros.adoc:4
+#: en/content/reference/transducers.adoc:4 en/content/reference/refs.adoc:4
+#: en/content/reference/lazy.adoc:4 en/content/reference/namespaces.adoc:4
+#: en/content/reference/lisps.adoc:4 en/content/reference/evaluation.adoc:4
+#: en/content/reference/other_functions.adoc:4
+#: en/content/reference/reducers.adoc:4
 #: en/content/reference/data_structures.adoc:4
-#: en/content/reference/datatypes.adoc:4 en/content/reference/agents.adoc:4
-#: en/content/reference/protocols.adoc:4 en/content/reference/reducers.adoc:4
-#: en/content/reference/lisps.adoc:4 en/content/reference/lazy.adoc:4
-#: en/content/reference/repl_and_main.adoc:4
-#: en/content/reference/transducers.adoc:4
-#: en/content/reference/namespaces.adoc:4 en/content/reference/libs.adoc:4
-#: en/content/reference/multimethods.adoc:4 en/content/search.adoc:4
-#: en/content/about/clojureclr.adoc:4
-#: en/content/about/functional_programming.adoc:4 en/content/about/lisp.adoc:4
-#: en/content/about/features.adoc:4 en/content/about/dynamic.adoc:4
-#: en/content/about/concurrent_programming.adoc:4 en/content/about/spec.adoc:4
-#: en/content/about/rationale.adoc:4 en/content/about/state.adoc:4
-#: en/content/about/clojurescript.adoc:4 en/content/about/jvm_hosted.adoc:4
-#: en/content/about/runtime_polymorphism.adoc:4 en/content/404.adoc:4
-#: en/content/privacy.adoc:4 en/content/community/swag.adoc:4
-#: en/content/community/downloads.adoc:4 en/content/community/license.adoc:4
+#: en/content/reference/atoms.adoc:4 en/content/reference/repl_and_main.adoc:4
+#: en/content/reference/agents.adoc:4 en/content/reference/datatypes.adoc:4
+#: en/content/community/libraries.adoc:4 en/content/community/license.adoc:4
 #: en/content/community/downloads_older.adoc:4
-#: en/content/community/libraries.adoc:4
+#: en/content/community/downloads.adoc:4 en/content/community/swag.adoc:4
+#: en/content/404.adoc:4 en/content/privacy.adoc:4 en/content/search.adoc:4
+#: en/content/about/spec.adoc:4 en/content/about/concurrent_programming.adoc:4
+#: en/content/about/lisp.adoc:4 en/content/about/jvm_hosted.adoc:4
+#: en/content/about/runtime_polymorphism.adoc:4 en/content/about/dynamic.adoc:4
+#: en/content/about/features.adoc:4 en/content/about/rationale.adoc:4
+#: en/content/about/state.adoc:4 en/content/about/clojurescript.adoc:4
+#: en/content/about/functional_programming.adoc:4
+#: en/content/about/clojureclr.adoc:4
 msgid "Rich Hickey 2015-01-01"
 msgstr ""
 
 #. type: Plain text
-#: en/content/reference/special_forms.adoc:15
-#: en/content/reference/sequences.adoc:15 en/content/reference/metadata.adoc:15
-#: en/content/reference/reader.adoc:13 en/content/reference/transients.adoc:16
-#: en/content/reference/macros.adoc:15 en/content/reference/refs.adoc:15
+#: en/content/reference/metadata.adoc:15 en/content/reference/protocols.adoc:15
+#: en/content/reference/sequences.adoc:15
+#: en/content/reference/multimethods.adoc:15 en/content/reference/libs.adoc:16
+#: en/content/reference/transients.adoc:16
 #: en/content/reference/compilation.adoc:16
-#: en/content/reference/other_functions.adoc:17
 #: en/content/reference/other_libraries.adoc:16
+#: en/content/reference/macros.adoc:15 en/content/reference/transducers.adoc:15
+#: en/content/reference/refs.adoc:15 en/content/reference/lazy.adoc:12
+#: en/content/reference/reader.adoc:13
+#: en/content/reference/special_forms.adoc:15
+#: en/content/reference/namespaces.adoc:15
 #: en/content/reference/java_interop.adoc:15
+#: en/content/reference/other_functions.adoc:17
+#: en/content/reference/vars.adoc:16 en/content/reference/reducers.adoc:15
 #: en/content/reference/data_structures.adoc:16
-#: en/content/reference/datatypes.adoc:16 en/content/reference/agents.adoc:16
-#: en/content/reference/protocols.adoc:15 en/content/reference/reducers.adoc:15
-#: en/content/reference/lazy.adoc:12 en/content/reference/repl_and_main.adoc:16
-#: en/content/reference/transducers.adoc:15 en/content/reference/vars.adoc:16
-#: en/content/reference/namespaces.adoc:15 en/content/reference/libs.adoc:16
-#: en/content/reference/multimethods.adoc:15
-#: en/content/about/functional_programming.adoc:15
-#: en/content/about/dynamic.adoc:16 en/content/about/spec.adoc:16
-#: en/content/about/rationale.adoc:13 en/content/about/state.adoc:16
-#: en/content/guides/reader_conditionals.adoc:10 en/content/guides/spec.adoc:11
+#: en/content/reference/repl_and_main.adoc:16
+#: en/content/reference/agents.adoc:16 en/content/reference/datatypes.adoc:16
+#: en/content/guides/spec.adoc:11 en/content/guides/reader_conditionals.adoc:10
 #: en/content/guides/destructuring.adoc:11 en/content/guides/faq.adoc:11
+#: en/content/about/spec.adoc:16 en/content/about/dynamic.adoc:16
+#: en/content/about/rationale.adoc:13 en/content/about/state.adoc:16
+#: en/content/about/functional_programming.adoc:15
 msgid "toc::[]"
-msgstr ""
-
-#. type: Plain text
-#: en/content/reference/reader.adoc:140
-#: en/content/reference/transducers.adoc:39
-msgid "For example:"
 msgstr ""
 
 #. type: Title ==
@@ -155,6 +151,12 @@ msgid ""
 "is not currying or partial application._"
 msgstr ""
 
+#. type: Plain text
+#: en/content/reference/transducers.adoc:39
+#: en/content/reference/reader.adoc:178
+msgid "For example:"
+msgstr ""
+
 #. type: delimited block -
 #: en/content/reference/transducers.adoc:44
 #, no-wrap
@@ -216,30 +218,30 @@ msgstr ""
 #: en/content/reference/transducers.adoc:71
 msgid ""
 "The following functions produce a transducer when the input collection is "
-"omitted: http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
-"map[map] http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
-"cat[cat] http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
-"mapcat[mapcat] http://clojure.github.io/clojure/clojure.core-api."
-"html#clojure.core/filter[filter] http://clojure.github.io/clojure/clojure."
-"core-api.html#clojure.core/remove[remove] http://clojure.github.io/clojure/"
-"clojure.core-api.html#clojure.core/take[take] http://clojure.github.io/"
-"clojure/clojure.core-api.html#clojure.core/take-while[take-while] http://"
-"clojure.github.io/clojure/clojure.core-api.html#clojure.core/take-nth[take-"
-"nth] http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
-"drop[drop] http://clojure.github.io/clojure/clojure.core-api.html#clojure."
-"core/drop-while[drop-while] http://clojure.github.io/clojure/clojure.core-"
-"api.html#clojure.core/replace[replace] http://clojure.github.io/clojure/"
-"clojure.core-api.html#clojure.core/partition-by[partition-by] http://clojure."
-"github.io/clojure/clojure.core-api.html#clojure.core/partition-all[partition-"
-"all] http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
-"keep[keep] http://clojure.github.io/clojure/clojure.core-api.html#clojure."
-"core/keep-indexed[keep-indexed] http://clojure.github.io/clojure/clojure."
-"core-api.html#clojure.core/map-indexed[map-indexed] http://clojure.github.io/"
-"clojure/clojure.core-api.html#clojure.core/distinct[distinct] http://clojure."
-"github.io/clojure/clojure.core-api.html#clojure.core/interpose[interpose] "
-"http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
-"dedupe[dedupe] http://clojure.github.io/clojure/clojure.core-api."
-"html#clojure.core/random-sample[random-sample]"
+"omitted: https://clojure.github.io/clojure/clojure.core-api.html#clojure."
+"core/map[map] https://clojure.github.io/clojure/clojure.core-api."
+"html#clojure.core/cat[cat] https://clojure.github.io/clojure/clojure.core-"
+"api.html#clojure.core/mapcat[mapcat] https://clojure.github.io/clojure/"
+"clojure.core-api.html#clojure.core/filter[filter] https://clojure.github.io/"
+"clojure/clojure.core-api.html#clojure.core/remove[remove] https://clojure."
+"github.io/clojure/clojure.core-api.html#clojure.core/take[take] https://"
+"clojure.github.io/clojure/clojure.core-api.html#clojure.core/take-while[take-"
+"while] https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
+"take-nth[take-nth] https://clojure.github.io/clojure/clojure.core-api."
+"html#clojure.core/drop[drop] https://clojure.github.io/clojure/clojure.core-"
+"api.html#clojure.core/drop-while[drop-while] https://clojure.github.io/"
+"clojure/clojure.core-api.html#clojure.core/replace[replace] https://clojure."
+"github.io/clojure/clojure.core-api.html#clojure.core/partition-by[partition-"
+"by] https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
+"partition-all[partition-all] https://clojure.github.io/clojure/clojure.core-"
+"api.html#clojure.core/keep[keep] https://clojure.github.io/clojure/clojure."
+"core-api.html#clojure.core/keep-indexed[keep-indexed] https://clojure.github."
+"io/clojure/clojure.core-api.html#clojure.core/map-indexed[map-indexed] "
+"https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
+"distinct[distinct] https://clojure.github.io/clojure/clojure.core-api."
+"html#clojure.core/interpose[interpose] https://clojure.github.io/clojure/"
+"clojure.core-api.html#clojure.core/dedupe[dedupe] https://clojure.github.io/"
+"clojure/clojure.core-api.html#clojure.core/random-sample[random-sample]"
 msgstr ""
 
 #. type: Title ===
@@ -264,7 +266,7 @@ msgstr ""
 #. type: Plain text
 #: en/content/reference/transducers.adoc:79
 msgid ""
-"One of the most common ways to apply transducers is with the http://clojure."
+"One of the most common ways to apply transducers is with the https://clojure."
 "github.io/clojure/clojure.core-api.html#clojure.core/transduce[transduce] "
 "function, which is analogous to the standard reduce function:"
 msgstr ""
@@ -318,7 +320,7 @@ msgstr ""
 #. type: Plain text
 #: en/content/reference/transducers.adoc:104
 msgid ""
-"To capture the process of applying a transducer to a coll, use the http://"
+"To capture the process of applying a transducer to a coll, use the https://"
 "clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
 "eduction[eduction] function. It takes any number of xforms and a final coll "
 "and returns a reducible/iterable application of the transducer to the items "
@@ -345,7 +347,7 @@ msgstr ""
 #: en/content/reference/transducers.adoc:112
 msgid ""
 "To apply a transducer to an input collection and construct a new output "
-"collection, use http://clojure.github.io/clojure/clojure.core-api."
+"collection, use https://clojure.github.io/clojure/clojure.core-api."
 "html#clojure.core/into[into] (which efficiently uses reduce and transients "
 "if possible):"
 msgstr ""
@@ -366,7 +368,7 @@ msgstr ""
 #: en/content/reference/transducers.adoc:118
 msgid ""
 "To create a sequence from the application of a transducer to an input "
-"collection, use http://clojure.github.io/clojure/clojure.core-api."
+"collection, use https://clojure.github.io/clojure/clojure.core-api."
 "html#clojure.core/sequence[sequence]:"
 msgstr ""
 
@@ -446,7 +448,7 @@ msgstr ""
 #: en/content/reference/transducers.adoc:143
 msgid ""
 "An example use of *completion* is *partition-all*, which must flush any "
-"remaining elements at the end of the input. The http://clojure.github.io/"
+"remaining elements at the end of the input. The https://clojure.github.io/"
 "clojure/clojure.core-api.html#clojure.core/completing[completing] function "
 "can be used to convert a reducing function to a transducing function by "
 "adding a default completion arity."
@@ -466,7 +468,7 @@ msgstr ""
 #. type: Plain text
 #: en/content/reference/transducers.adoc:149
 msgid ""
-"http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
+"https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
 "reduced[reduced] - takes a value and returns a _reduced_ value indicating "
 "reduction should stop"
 msgstr ""
@@ -474,14 +476,14 @@ msgstr ""
 #. type: Plain text
 #: en/content/reference/transducers.adoc:150
 msgid ""
-"http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/reduced?"
+"https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/reduced?"
 "[reduced?] - returns true if the value was created with _reduced_"
 msgstr ""
 
 #. type: Plain text
 #: en/content/reference/transducers.adoc:151
 msgid ""
-"http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
+"https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/"
 "deref[deref] or @ can be used to retrieve the value inside a _reduced_"
 msgstr ""
 

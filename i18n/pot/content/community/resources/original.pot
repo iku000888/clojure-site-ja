@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: clojure-site-ja 0.0.1\n"
-"POT-Creation-Date: 2016-07-01 15:52+0900\n"
+"POT-Creation-Date: 2017-07-05 16:14+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,26 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. type: Plain text
-#: en/content/api/api.adoc:67 en/content/community/resources.adoc:39
+#: en/content/api/api.adoc:68 en/content/community/resources.adoc:39
 msgid ""
 "http://grimoire.arrdem.com/[Grimoire] - community combined cheatsheet + "
 "examples"
 msgstr ""
 
 #. type: Plain text
-#: en/content/api/api.adoc:68 en/content/community/resources.adoc:40
+#: en/content/api/api.adoc:69 en/content/community/resources.adoc:40
 msgid ""
-"http://clojuredocs.org[ClojureDocs] - community provided example repository"
+"https://clojuredocs.org[ClojureDocs] - community provided example repository"
 msgstr ""
 
 #. type: Plain text
-#: en/content/api/api.adoc:69 en/content/community/resources.adoc:41
-msgid "http://crossclj.info/[CrossClj] - library cross-reference"
+#: en/content/api/api.adoc:70 en/content/community/resources.adoc:41
+msgid "https://crossclj.info/[CrossClj] - library cross-reference"
 msgstr ""
 
 #. type: Plain text
-#: en/content/reference/reader.adoc:4 en/content/community/books.adoc:4
-#: en/content/community/resources.adoc:4
+#: en/content/reference/reader.adoc:4 en/content/community/resources.adoc:4
+#: en/content/community/books.adoc:4
 msgid "Rich Hickey 2016-02-15"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/content/community/resources.adoc:13
-msgid "http://groups.google.com/group/clojure[Clojure Google Group]"
+msgid "https://groups.google.com/group/clojure[Clojure Google Group]"
 msgstr ""
 
 #. type: Plain text
@@ -70,7 +70,7 @@ msgstr ""
 #. type: Plain text
 #: en/content/community/resources.adoc:16
 msgid ""
-"http://dev.clojure.org/display/community/Clojure+User+Groups[Clojure User "
+"https://dev.clojure.org/display/community/Clojure+User+Groups[Clojure User "
 "Groups]"
 msgstr ""
 
@@ -81,17 +81,17 @@ msgstr ""
 
 #. type: Plain text
 #: en/content/community/resources.adoc:18
-msgid "http://dev.clojure.org/display/community/Home[Community Wiki]"
+msgid "https://dev.clojure.org/display/community/Home[Community Wiki]"
 msgstr ""
 
 #. type: Plain text
 #: en/content/community/resources.adoc:19
-msgid "http://dev.clojure.org/display/doc/Home[Documentation Wiki]"
+msgid "https://dev.clojure.org/display/doc/Home[Documentation Wiki]"
 msgstr ""
 
 #. type: Plain text
 #: en/content/community/resources.adoc:20
-msgid "http://dev.clojure.org/display/design/Home[Design Wiki]"
+msgid "https://dev.clojure.org/display/design/Home[Design Wiki]"
 msgstr ""
 
 #. type: Title ==
@@ -107,12 +107,12 @@ msgstr ""
 
 #. type: Plain text
 #: en/content/community/resources.adoc:26
-msgid "http://clojure.github.io/clojure/[Clojure API Docs]"
+msgid "https://clojure.github.io/clojure/[Clojure API Docs]"
 msgstr ""
 
 #. type: Plain text
 #: en/content/community/resources.adoc:27
-msgid "http://clojure.github.io/[Clojure Contrib Library API Docs]"
+msgid "https://clojure.github.io/[Clojure Contrib Library API Docs]"
 msgstr ""
 
 #. type: Plain text
@@ -140,9 +140,9 @@ msgstr ""
 #. type: Plain text
 #: en/content/community/resources.adoc:31
 msgid ""
-"Issues - http://dev.clojure.org/jira/browse/CLJ[Clojure], http://dev.clojure."
-"org/jira/browse/CLJS[ClojureScript], http://dev.clojure.org/jira/browse/"
-"CLJCLR[ClojureCLR]"
+"Issues - https://dev.clojure.org/jira/browse/CLJ[Clojure], https://dev."
+"clojure.org/jira/browse/CLJS[ClojureScript], https://dev.clojure.org/jira/"
+"browse/CLJCLR[ClojureCLR]"
 msgstr ""
 
 #. type: Plain text
@@ -359,30 +359,37 @@ msgid ""
 "video[Building Web Applications with Clojure] - Tomek Lipski (Packt)"
 msgstr ""
 
-#. type: Title ==
+#. type: Plain text
 #: en/content/community/resources.adoc:77
+msgid ""
+"https://lambdaisland.com/[Lambda Island] - Screencast series about "
+"ClojureScript and Clojure"
+msgstr ""
+
+#. type: Title ==
+#: en/content/community/resources.adoc:78
 #, no-wrap
 msgid "Clojure Tools"
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:80
+#: en/content/community/resources.adoc:81
 msgid ""
-"Community volunteers maintain http://dev.clojure.org/display/doc/getting"
-"+started[Getting Started] documentation for a number of different tools and "
-"approaches. Some of the most commonly used tools include:"
+"Community volunteers maintain <<xref/../../guides/getting_started#,Getting "
+"Started>> documentation for a number of different tools and approaches. Some "
+"of the most commonly used tools include:"
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:82
+#: en/content/community/resources.adoc:83
 msgid ""
-"http://leiningen.org/[Leiningen] - an extensible build tool that provides "
+"https://leiningen.org/[Leiningen] - an extensible build tool that provides "
 "dependency management, REPL support, testing, packaging, deployment, and "
 "many other capabilities."
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:83
+#: en/content/community/resources.adoc:84
 msgid ""
 "http://boot-clj.com/[Boot] - build tooling for Clojure: instead of a special-"
 "purpose DSL, Boot supplies abstractions and libraries you can use to "
@@ -391,80 +398,80 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:84
+#: en/content/community/resources.adoc:85
 msgid ""
 "http://www.gnu.org/software/emacs/[Emacs] with https://github.com/clojure-"
 "emacs/cider[CIDER]"
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:85
+#: en/content/community/resources.adoc:86
 msgid ""
 "http://www.vim.org/[Vim] with https://github.com/tpope/vim-"
 "fireplace[Fireplace]"
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:86
-msgid "https://code.google.com/p/counterclockwise/[Eclipse Counterclockwise]"
-msgstr ""
-
-#. type: Plain text
 #: en/content/community/resources.adoc:87
-msgid "IntelliJ https://cursiveclojure.com/[Cursive]"
+msgid "http://doc.ccw-ide.org/[Eclipse Counterclockwise]"
 msgstr ""
 
 #. type: Plain text
 #: en/content/community/resources.adoc:88
-msgid "https://sekao.net/nightcode/[Nightcode]"
+msgid "IntelliJ https://cursiveclojure.com/[Cursive]"
 msgstr ""
 
 #. type: Plain text
 #: en/content/community/resources.adoc:89
-msgid "http://www.lighttable.com/[Light Table]"
+msgid "https://sekao.net/nightcode/[Nightcode]"
 msgstr ""
 
 #. type: Plain text
 #: en/content/community/resources.adoc:90
+msgid "http://www.lighttable.com/[Light Table]"
+msgstr ""
+
+#. type: Plain text
+#: en/content/community/resources.adoc:91
 msgid ""
 "http://www.sublimetext.com/[Sublime Text] with https://github.com/wuub/"
 "SublimeREPL[SublimeREPL]"
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:91
+#: en/content/community/resources.adoc:92
 msgid "https://atom.io[Atom] with https://atom.io/packages/nrepl[nrepl]"
 msgstr ""
 
 #. type: Title ==
-#: en/content/community/resources.adoc:92
+#: en/content/community/resources.adoc:93
 #, no-wrap
 msgid "Conferences"
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:95
+#: en/content/community/resources.adoc:96
 msgid "http://clojure-conj.org/[Clojure/conj] (usually in November)"
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:96
+#: en/content/community/resources.adoc:97
 msgid "http://www.clojurewest.org/[Clojure/west] (usually in March)"
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:97
+#: en/content/community/resources.adoc:98
 msgid "http://euroclojure.com[EuroClojure] (usually mid-year)"
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:98
+#: en/content/community/resources.adoc:99
 msgid ""
 "http://www.clojurebridge.org/[ClojureBridge] - beginner workshops for women"
 msgstr ""
 
 #. type: Plain text
-#: en/content/community/resources.adoc:98
+#: en/content/community/resources.adoc:99
 msgid ""
 "http://lanyrd.com/search/?context=future&q=clojure&type=conference[Clojure "
 "events]"

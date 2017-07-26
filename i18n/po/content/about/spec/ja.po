@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: clojure-site-ja 0.0.1\n"
-"POT-Creation-Date: 2016-07-01 15:54+0900\n"
+"POT-Creation-Date: 2017-06-01 09:26+0900\n"
 "PO-Revision-Date: 2016-06-27 08:47+0900\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,51 +17,45 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. type: Plain text
-#: en/content/reference/atoms.adoc:4 en/content/reference/sequences.adoc:4 en/content/reference/metadata.adoc:4
-#: en/content/reference/evaluation.adoc:4 en/content/reference/transients.adoc:4 en/content/reference/macros.adoc:4
-#: en/content/reference/documentation.adoc:4 en/content/reference/refs.adoc:4 en/content/reference/compilation.adoc:4
-#: en/content/reference/other_functions.adoc:4 en/content/reference/other_libraries.adoc:4
-#: en/content/reference/data_structures.adoc:4 en/content/reference/datatypes.adoc:4 en/content/reference/agents.adoc:4
-#: en/content/reference/protocols.adoc:4 en/content/reference/reducers.adoc:4 en/content/reference/lisps.adoc:4
-#: en/content/reference/lazy.adoc:4 en/content/reference/repl_and_main.adoc:4 en/content/reference/transducers.adoc:4
-#: en/content/reference/namespaces.adoc:4 en/content/reference/libs.adoc:4 en/content/reference/multimethods.adoc:4
-#: en/content/search.adoc:4 en/content/about/clojureclr.adoc:4 en/content/about/functional_programming.adoc:4
-#: en/content/about/lisp.adoc:4 en/content/about/features.adoc:4 en/content/about/dynamic.adoc:4
-#: en/content/about/concurrent_programming.adoc:4 en/content/about/spec.adoc:4 en/content/about/rationale.adoc:4
-#: en/content/about/state.adoc:4 en/content/about/clojurescript.adoc:4 en/content/about/jvm_hosted.adoc:4
-#: en/content/about/runtime_polymorphism.adoc:4 en/content/404.adoc:4 en/content/privacy.adoc:4
-#: en/content/community/swag.adoc:4 en/content/community/downloads.adoc:4 en/content/community/license.adoc:4
-#: en/content/community/downloads_older.adoc:4 en/content/community/libraries.adoc:4
+#: en/content/reference/metadata.adoc:4 en/content/reference/protocols.adoc:4 en/content/reference/sequences.adoc:4
+#: en/content/reference/multimethods.adoc:4 en/content/reference/libs.adoc:4 en/content/reference/transients.adoc:4
+#: en/content/reference/compilation.adoc:4 en/content/reference/other_libraries.adoc:4
+#: en/content/reference/documentation.adoc:4 en/content/reference/macros.adoc:4 en/content/reference/transducers.adoc:4
+#: en/content/reference/refs.adoc:4 en/content/reference/lazy.adoc:4 en/content/reference/namespaces.adoc:4
+#: en/content/reference/lisps.adoc:4 en/content/reference/evaluation.adoc:4 en/content/reference/other_functions.adoc:4
+#: en/content/reference/reducers.adoc:4 en/content/reference/data_structures.adoc:4 en/content/reference/atoms.adoc:4
+#: en/content/reference/repl_and_main.adoc:4 en/content/reference/agents.adoc:4 en/content/reference/datatypes.adoc:4
+#: en/content/community/libraries.adoc:4 en/content/community/license.adoc:4 en/content/community/downloads_older.adoc:4
+#: en/content/community/downloads.adoc:4 en/content/community/swag.adoc:4 en/content/404.adoc:4
+#: en/content/privacy.adoc:4 en/content/search.adoc:4 en/content/about/spec.adoc:4
+#: en/content/about/concurrent_programming.adoc:4 en/content/about/lisp.adoc:4 en/content/about/jvm_hosted.adoc:4
+#: en/content/about/runtime_polymorphism.adoc:4 en/content/about/dynamic.adoc:4 en/content/about/features.adoc:4
+#: en/content/about/rationale.adoc:4 en/content/about/state.adoc:4 en/content/about/clojurescript.adoc:4
+#: en/content/about/functional_programming.adoc:4 en/content/about/clojureclr.adoc:4
 msgid "Rich Hickey 2015-01-01"
 msgstr "Rich Hickey 2015-01-01"
 
 #. type: Plain text
-#: en/content/reference/special_forms.adoc:15 en/content/reference/sequences.adoc:15
-#: en/content/reference/metadata.adoc:15 en/content/reference/reader.adoc:13 en/content/reference/transients.adoc:16
-#: en/content/reference/macros.adoc:15 en/content/reference/refs.adoc:15 en/content/reference/compilation.adoc:16
-#: en/content/reference/other_functions.adoc:17 en/content/reference/other_libraries.adoc:16
-#: en/content/reference/java_interop.adoc:15 en/content/reference/data_structures.adoc:16
-#: en/content/reference/datatypes.adoc:16 en/content/reference/agents.adoc:16 en/content/reference/protocols.adoc:15
-#: en/content/reference/reducers.adoc:15 en/content/reference/lazy.adoc:12 en/content/reference/repl_and_main.adoc:16
-#: en/content/reference/transducers.adoc:15 en/content/reference/vars.adoc:16 en/content/reference/namespaces.adoc:15
-#: en/content/reference/libs.adoc:16 en/content/reference/multimethods.adoc:15
-#: en/content/about/functional_programming.adoc:15 en/content/about/dynamic.adoc:16 en/content/about/spec.adoc:16
-#: en/content/about/rationale.adoc:13 en/content/about/state.adoc:16 en/content/guides/reader_conditionals.adoc:10
-#: en/content/guides/spec.adoc:11 en/content/guides/destructuring.adoc:11 en/content/guides/faq.adoc:11
+#: en/content/reference/metadata.adoc:15 en/content/reference/protocols.adoc:15 en/content/reference/sequences.adoc:15
+#: en/content/reference/multimethods.adoc:15 en/content/reference/libs.adoc:16 en/content/reference/transients.adoc:16
+#: en/content/reference/compilation.adoc:16 en/content/reference/other_libraries.adoc:16
+#: en/content/reference/macros.adoc:15 en/content/reference/transducers.adoc:15 en/content/reference/refs.adoc:15
+#: en/content/reference/lazy.adoc:12 en/content/reference/reader.adoc:13 en/content/reference/special_forms.adoc:15
+#: en/content/reference/namespaces.adoc:15 en/content/reference/java_interop.adoc:15
+#: en/content/reference/other_functions.adoc:17 en/content/reference/vars.adoc:16 en/content/reference/reducers.adoc:15
+#: en/content/reference/data_structures.adoc:16 en/content/reference/repl_and_main.adoc:16
+#: en/content/reference/agents.adoc:16 en/content/reference/datatypes.adoc:16 en/content/guides/spec.adoc:11
+#: en/content/guides/reader_conditionals.adoc:10 en/content/guides/destructuring.adoc:11 en/content/guides/faq.adoc:11
+#: en/content/about/spec.adoc:16 en/content/about/dynamic.adoc:16 en/content/about/rationale.adoc:13
+#: en/content/about/state.adoc:16 en/content/about/functional_programming.adoc:15
 msgid "toc::[]"
 msgstr "toc::[]"
 
-#. type: Title ==
-#: en/content/reference/sequences.adoc:1 en/content/about/spec.adoc:234 en/content/guides/spec.adoc:450
+#. type: Title ====
+#: en/content/reference/sequences.adoc:1 en/content/guides/spec.adoc:496 en/content/about/spec.adoc:234
 #, no-wrap
 msgid "Sequences"
 msgstr ""
-
-#. type: Title ====
-#: en/content/reference/reader.adoc:56 en/content/about/spec.adoc:198
-#, no-wrap
-msgid "Maps"
-msgstr "Maps (マップ)"
 
 #. type: Title ====
 #: en/content/reference/documentation.adoc:1 en/content/about/spec.adoc:310
@@ -69,9 +63,16 @@ msgstr "Maps (マップ)"
 msgid "Documentation"
 msgstr ""
 
+#. type: Title ====
+#: en/content/reference/reader.adoc:57 en/content/about/spec.adoc:198
+#, no-wrap
+msgid "Maps"
+msgstr "Maps (マップ)"
+
 #. type: Plain text
-#: en/content/news/2011/07/22/introducing-clojurescript.adoc:30 en/content/about/spec.adoc:99
-msgid "Destructuring"
+#: en/content/guides/spec.adoc:1167 en/content/about/spec.adoc:100
+#, no-wrap
+msgid "Instrumentation"
 msgstr ""
 
 #. type: Plain text
@@ -79,10 +80,9 @@ msgstr ""
 msgid "Rich Hickey"
 msgstr ""
 
-#. type: Title ==
-#: en/content/about/features.adoc:1 en/content/about/spec.adoc:189
-#, no-wrap
-msgid "Features"
+#. type: Plain text
+#: en/content/news/2011/07/22/introducing-clojurescript.adoc:30 en/content/about/spec.adoc:99
+msgid "Destructuring"
 msgstr ""
 
 #. type: Title =
@@ -274,12 +274,6 @@ msgstr ""
 #. type: Plain text
 #: en/content/about/spec.adoc:98
 msgid "Error reporting"
-msgstr ""
-
-#. type: Title ===
-#: en/content/about/spec.adoc:100 en/content/guides/spec.adoc:1104
-#, no-wrap
-msgid "Instrumentation"
 msgstr ""
 
 #. type: Plain text
@@ -498,6 +492,12 @@ msgid ""
 "runtime dependency on ``test.check``."
 msgstr ""
 
+#. type: Title =
+#: en/content/about/spec.adoc:189 en/content/about/features.adoc:1
+#, no-wrap
+msgid "Features"
+msgstr "特徴"
+
 #. type: Title ===
 #: en/content/about/spec.adoc:190
 #, no-wrap
@@ -514,9 +514,9 @@ msgstr ""
 #: en/content/about/spec.adoc:197
 msgid ""
 "The basic idea is that specs are nothing more than a logical composition of predicates. At the bottom we are talking "
-"about the simple boolean predicates you are used to like ``integer?`` or `symbol?`, or expressions you build yourself "
-"like `#(< 42 % 66)` **spec** adds logical ops like ``spec/and`` and ``spec/or`` which combine specs in a logical way "
-"and offer deep reporting, generation and conform support and, in the case of ``spec/or``, tagged returns."
+"about the simple boolean predicates you are used to like ``int?`` or `symbol?`, or expressions you build yourself "
+"like `#(< 42 % 66)`.  **spec** adds logical ops like ``spec/and`` and ``spec/or`` which combine specs in a logical "
+"way and offer deep reporting, generation and conform support and, in the case of ``spec/or``, tagged returns."
 msgstr ""
 
 #. type: Plain text
@@ -648,7 +648,7 @@ msgstr ""
 #: en/content/about/spec.adoc:269
 #, no-wrap
 msgid ""
-"user=> (require '[clojure.spec :as s])\n"
+"user=> (require '[clojure.spec.alpha :as s])\n"
 "(s/def ::even? (s/and integer? even?))\n"
 "(s/def ::odd? (s/and integer? odd?))\n"
 "(s/def ::a integer?)\n"
@@ -677,8 +677,8 @@ msgstr ""
 #: en/content/about/spec.adoc:275
 msgid ""
 "As you can see above, the basic operation for using specs is ``conform``, which takes a spec and a value and returns "
-"the conformed value or ``:clojure.spec/invalid`` if the value did not conform. When the value does not conform you "
-"can call ``explain`` or ``explain-data`` to find out why it didn't."
+"the conformed value or ``:clojure.spec.alpha/invalid`` if the value did not conform. When the value does not conform "
+"you can call ``explain`` or ``explain-data`` to find out why it didn't."
 msgstr ""
 
 #. type: Title ===
@@ -794,9 +794,9 @@ msgstr ""
 #. type: Plain text
 #: en/content/about/spec.adoc:322
 msgid ""
-"You can selectively instrument functions and namespaces with ``instrument`` and ``instrument-ns``. ``instrument`` "
-"swaps out the fn var with a wrapped version of the fn that tests all three of the fn specs. ``unstrument`` returns a "
-"fn to its original version. You can generate data for interactive testing with ``gen/sample``."
+"You can selectively instrument functions and namespaces with ``instrument``, which swaps out the fn var with a "
+"wrapped version of the fn that tests the ``:args`` spec. ``unstrument`` returns a fn to its original version. You can "
+"generate data for interactive testing with ``gen/sample``."
 msgstr ""
 
 #. type: Title ====
@@ -808,7 +808,7 @@ msgstr ""
 #. type: Plain text
 #: en/content/about/spec.adoc:330
 msgid ""
-"You can run a suite of spec-generative tests on an entire ns with ``run-tests``. You can get a test.check compatible "
+"You can run a suite of spec-generative tests on an entire ns with ``check``. You can get a test.check compatible "
 "generator for a spec by calling ``gen``. There are built-in associations between many of the ``clojure.core`` data "
 "predicates and corresponding generators, and the composite ops of **spec** know how to build generators atop those. "
 "If you call ``gen`` on a spec and it is unable to construct a generator for some subtree, it will throw an exception "
@@ -833,7 +833,7 @@ msgstr ""
 #. type: Plain text
 #: en/content/about/spec.adoc:336
 msgid ""
-"Please see the <<xref/../../../guides/spec#,spec Guide>> and http://clojure.github.io/clojure/branch-master/clojure."
+"Please see the <<xref/../../../guides/spec#,spec Guide>> and https://clojure.github.io/clojure/branch-master/clojure."
 "spec-api.html[API docs] for more examples and usage information."
 msgstr ""
 
@@ -919,8 +919,8 @@ msgstr ""
 msgid ""
 "``conform`` is the basic operation for consuming specs, and does both validation and conforming/destructuring.  Note "
 "that conforming is 'deep' and flows through all of the spec and regex operations, map specs etc.  Since ``nil`` and "
-"``false`` are legitimate conformed values, conform returns the distinguished ``:clojure.spec/invalid`` when a value "
-"cannot be made to conform. ``valid``? can be used instead as a fully-boolean predicate."
+"``false`` are legitimate conformed values, conform returns the distinguished ``:clojure.spec.alpha/invalid`` when a "
+"value cannot be made to conform. ``valid``? can be used instead as a fully-boolean predicate."
 msgstr ""
 
 #. type: Title ===
@@ -964,7 +964,7 @@ msgstr ""
 #: en/content/about/spec.adoc:378
 msgid ""
 "Almost nothing about spec is novel. See all the libraries mentioned above, https://www.w3.org/TR/2014/REC-rdf11-"
-"concepts-20140225/[RDF], as well as all the work done on various contract systems, such as http://docs.racket-lang."
+"concepts-20140225/[RDF], as well as all the work done on various contract systems, such as https://docs.racket-lang."
 "org/guide/contracts.html[Racket's contracts]."
 msgstr ""
 
