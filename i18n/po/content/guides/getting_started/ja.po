@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: clojure-site-ja 0.0.1\n"
 "POT-Creation-Date: 2018-04-02 07:18+0900\n"
-"PO-Revision-Date: 2018-04-02 01:01+0900\n"
+"PO-Revision-Date: 2018-04-04 00:34+0900\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: ja\n"
@@ -45,7 +45,7 @@ msgstr "toc::[]"
 #: en/content/guides/getting_started.adoc:1
 #, no-wrap
 msgid "Getting Started"
-msgstr "始め方ガイド"
+msgstr "始め方"
 
 #. type: Plain text
 #: en/content/guides/getting_started.adoc:4 en/content/news/2016/01/14/clojure-org-live.adoc:4
@@ -55,7 +55,7 @@ msgstr "Alex Miller 2016-01-14"
 #. type: Plain text
 #: en/content/guides/getting_started.adoc:13
 msgid "Welcome to Clojure!"
-msgstr "Clojureへようこそ"
+msgstr "Clojureへようこそ!"
 
 #. type: Plain text
 #: en/content/guides/getting_started.adoc:15
@@ -82,7 +82,7 @@ msgstr "ClojureはClojure replを起動したり、ClojureやJavaのライブラ
 #: en/content/guides/getting_started.adoc:20
 #, no-wrap
 msgid "Installation on Mac via `brew`"
-msgstr "`brew` を利用してMacにインストールする"
+msgstr "`brew` を利用したMacへのインストール"
 
 #. type: Plain text
 #: en/content/guides/getting_started.adoc:23
@@ -98,7 +98,7 @@ msgstr "brew install clojure\n"
 #. type: Plain text
 #: en/content/guides/getting_started.adoc:30
 msgid "If you've already installed, you can upgrade to the latest release with:"
-msgstr "既にインストールしている場合は次のコマンドで最新にアップグレードすることができる:"
+msgstr "既にインストールしている場合は次のコマンドで最新のリリースにアップグレードすることができる:"
 
 #. type: delimited block -
 #: en/content/guides/getting_started.adoc:34
@@ -110,7 +110,7 @@ msgstr "brew upgrade clojure\n"
 #: en/content/guides/getting_started.adoc:36
 #, no-wrap
 msgid "Installation on Linux"
-msgstr "Linuxにインストールする"
+msgstr "Linuxへのインストール"
 
 #. type: Plain text
 #: en/content/guides/getting_started.adoc:39
@@ -139,7 +139,7 @@ msgstr ""
 #. type: Plain text
 #: en/content/guides/getting_started.adoc:49
 msgid "Platform installers (apt-get, etc) will be available in the future."
-msgstr "プラットフォーム別のインストーラ(apt-get, etc)は将来的に提供される。"
+msgstr "プラットフォーム別のインストーラ(apt-getなど)は将来的に提供される。"
 
 #. type: Title ===
 #: en/content/guides/getting_started.adoc:50
@@ -202,7 +202,7 @@ msgstr "*オンラインでClojureを試す*\n"
 #. type: Plain text
 #: en/content/guides/getting_started.adoc:78
 msgid "https://repl.it/languages/clojure[repl.it] provides a browser-based Clojure repl for interactive exploration."
-msgstr "https://repl.it/languages/clojure[repl.it] はインタラクティブな探求用のブラウザベースのClojure repl提供している。"
+msgstr "https://repl.it/languages/clojure[repl.it] はインタラクティブな探索のためのブラウザベースのClojure replを提供している。"
 
 #. type: Plain text
 #: en/content/guides/getting_started.adoc:80
@@ -215,4 +215,4 @@ msgstr "*ビルドツール*\n"
 msgid ""
 "Build tools provide a range of capabilities for building, running, and deploying Clojure libraries and applications. "
 "The two most popular Clojure build tools are https://leiningen.org/[Leiningen] and http://boot-clj.com/[Boot]."
-msgstr "ビルドツールはビルド、実行、Clojureライブラリやアプリケーションの実行など多様な機能を提供する。最も広く使われているのは https://leiningen.org/[Leiningen] と http://boot-clj.com/[Boot]だ。"
+msgstr "ビルドツールはClojureライブラリやアプリケーションのビルド、実行、デプロイのための幅広い機能を提供する。最も広く使われているのは https://leiningen.org/[Leiningen] と http://boot-clj.com/[Boot]だ。"
