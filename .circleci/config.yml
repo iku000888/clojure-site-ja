@@ -6,7 +6,7 @@ docker_env:
       - image: ubuntu:bionic
     working_directory: ~/repo
     shell: /bin/bash --login
-    environtment:
+    environment:
       - TZ: "/usr/share/zoneinfo/Asia/Tokyo"
 
 keys:
@@ -48,7 +48,11 @@ jobs:
   deploy:
     <<: *container_config
     steps:
-      - run: apt-get update; apt-get install -y git make unzip ssh ca-certificates po4a openjdk-8-jdk python3-pip python3-dev
+      - run: apt-get update; apt-get install -y git make unzip ssh ca-certificates po4a openjdk-8-jdk python3-pip python3-dev curl
+      - add_ssh_keys:
+          fingerprints:
+            - "e9:9d:f8:4c:ab:55:22:9d:cd:a9:db:a2:71:ad:bc:ec"
+      - run: echo "    StrictHostKeyChecking no" >> ~/.ssh/config
       - restore_cache:
           key: *repo_cache_key
       - restore_cache:
@@ -72,6 +76,6 @@ workflows:
       - deploy:
           requires:
             - test
-#          filters:
-#            branches:
-#              only: master
+          filters:
+            branches:
+              only: publish_test
