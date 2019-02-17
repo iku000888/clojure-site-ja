@@ -62,7 +62,7 @@ jobs:
           key: *jbake_cache_key
       - run:
           name: deployment
-          command: make publish -e JBAKE_CMD=~/jbake/bin/jbake 2>/dev/null
+          command: yes | make publish -e JBAKE_CMD=~/jbake/bin/jbake 2>/dev/null
 
 workflows:
   version: 2
