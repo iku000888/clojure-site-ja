@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - 他のLispとの違い</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>他のLispとの違い</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div class="paragraph">
+<p>この情報はCommon LispやSchemeを知っているプログラマーのために提供されている。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Clojureは大文字と小文字の違いを気にする</p>
+</li>
+<li>
+<p>ClojureはLisp-1である</p>
+</li>
+<li>
+<p>()はnilとは異なる</p>
+</li>
+<li>
+<p>readerは副作用を起こさない</p>
+</li>
+<li>
+<p>キーワードはシンボルではない</p>
+</li>
+<li>
+<p>シンボルはストレージではない (Varを参照)</p>
+</li>
+<li>
+<p><em><strong>nil</strong></em> はシンボルではない</p>
+</li>
+<li>
+<p>t はシンタックスに含まれない。 <em><strong>true</strong></em> を使用する</p>
+</li>
+<li>
+<p>現在、ユーザープログラムがリードテーブルにアクセスすることはできない</p>
+</li>
+<li>
+<p><em><strong>let</strong></em> は逐次的に束縛を行う</p>
+</li>
+<li>
+<p><em><strong>do</strong></em> はループ構造ではない</p>
+</li>
+<li>
+<p>末尾呼び出し最適化はない。 <em><strong>recur</strong></em> を使用する。</p>
+</li>
+<li>
+<p>シンタックスクォートはシンボルの解決を行うため、 `x は 'x と異なる。</p>
+</li>
+<li>
+<p>` は自動的にgensymを行う。</p>
+</li>
+<li>
+<p>~ はアンクォートで、 ',' は空白である</p>
+</li>
+<li>
+<p>マップ、ベクター、セットに対してリーダーのシンタックスが定義されている</p>
+</li>
+<li>
+<p><em><strong>cons</strong></em>, <em><strong>first</strong></em> 及び <em><strong>rest</strong></em> は具体的なコンスセルに対してではなく、シーケンス抽象を操作する。</p>
+</li>
+<li>
+<p>ほとんどのデータ構造はイミュータブルである。</p>
+</li>
+<li>
+<p>ラムダは <em><strong>fn</strong></em> であり、アリティによるオーバーロードをサポートしている。</p>
+</li>
+<li>
+<p><em><strong>=</strong></em> は等価性を示す述語である</p>
+</li>
+<li>
+<p>グローバルなVarは、動的(dynamic)と宣言されている場合には、ローカルなシンボルの束縛に干渉することなく動的に再束縛することができる。動的な束縛とレキシカルな束縛を区別するための特別な宣言などは必要ない。ClojureはLisp-1であるため、グローバルな関数は動的に再束縛することができる。</p>
+</li>
+<li>
+<p>letrec、labels や flet は存在しない - 自己参照には (fn name [args]&#8230;&#8203;) を使用する。相互参照には
+<a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/letfn">letfn</a>
+を使用する。</p>
+</li>
+<li>
+<p>Clojure では <em><strong>nil</strong></em> は 「無」 を意味する。どのような型においてもが値がないこと示し、リストやシーケンス特有のものではない。</p>
+</li>
+<li>
+<p>空のコレクションは <em><strong>nil</strong></em> とは明確に異なる。Clojureは <em><strong>nil</strong></em> と '() を同値として扱わない。</p>
+</li>
+<li>
+<p><em><strong>false</strong></em> はboolean型でとりうる２つの値のうちのひとつを示し、もうひとつの値は <em><strong>true</strong></em> である。</p>
+</li>
+<li>
+<p>リスト以外にもコレクションは存在する。空のコレクションのインスタンスを作ることができ、いくつかはリテラルをサポートしている ([]、 {}、 及び
+())。よって、空のコレクションを示すセンチネルな値は存在しない。</p>
+</li>
+<li>
+<p>Schemeから来た場合、 <em><strong>nil</strong></em> は#fの概念に最も似ているかもしれない。</p>
+</li>
+<li>
+<p>Clojureにおける大きな違いはシーケンスである。シーケンスは特定のコレクションではなく、特に必ずしも具体的なリストではない。 <strong>seq</strong>
+を呼び出して空のコレクションからシーケンスを要求した場合、 <em><strong>nil</strong></em>
+を返し、「シーケンスを作ることができない」ということを示す。シーケンスの最後の要素に対して <em><strong>rest</strong></em> を要求した場合、
+<em><strong>別の論理的なシーケンスを返す。</strong></em> シーケンスが空かどうかはそれに対して <strong>seq</strong>
+を呼び出すことによって判定できる。シーケンスとシーケンスのプロトコルを <em>lazy</em> な(遅延評価される)ものにすることが可能になる。</p>
+</li>
+<li>
+<p>いくつかのシーケンス関数は、pair/cons (リスト) に対してのみ操作を行い、空リストを意味するセンチネル値 ('() and nil)
+を返すという点がSchemeやCLの関数に対応する。Clojureが返す値は、具体的な空のコレクションではなく、むしろ別の論理的なシーケンスであるという点が異なる。いくつかのシーケンス関数はScheme/CLに相当するものが存在せず、Haskell/MLライクな関数である。これらの関数のいくつかが無限の、または計算されたシーケンスを返し、Scheme/CLにおける具体的なデータ構造とはあまり似ていない。</p>
+</li>
+<li>
+<p>コレクション/データ構造とseq/iterationを区別することは有用だ。CLとSchemeではどちらもそれらが入り混じっているが、Clojureでは区別されている。</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread table">
+<colgroup>
+<col style="width: %;">
+<col style="width: %;">
+<col style="width: %;">
+<col style="width: %;">
+<col style="width: %;">
+<col style="width: %;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Clojure</th>
+<th class="tableblock halign-left valign-top">Common Lisp</th>
+<th class="tableblock halign-left valign-top">Scheme</th>
+<th class="tableblock halign-left valign-top">Java</th>
+<th class="tableblock halign-left valign-top"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nil があるか</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nil - 「無」を意味する</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nil - falseまたは空リストを意味する</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true があるか</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">#t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true (プリミティヴ)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false があるか</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">#f</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false (プリイティヴ)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">条件分岐の際の区別:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nil と false/ それ以外</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nil/非nil</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">#f/非#f</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false/true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">リスト/シーケンスライブラリが個別の具体的な型を扱うか</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">扱わない - seqによるコレクションの実装の抽象化</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">扱う - コンス と ベクター</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">扱う - ペア</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">扱わない - イテレーターによるコレクション実装の抽象化</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">シングルトンの空リスト値があるか</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ない - 具体的なコレクション型ごとに空のコレクションの値が存在しうる</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nil</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ない</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">シーケンスの終端の戻り値:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>seq</strong> がnilを返す論理シーケンス</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nil</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ホスト環境の null:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nil</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ホスト環境の true:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true (boxed)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ホスト環境の false:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false (boxed)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>

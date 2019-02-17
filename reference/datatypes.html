@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - データ型: deftypeとdefrecordとreify</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>データ型: deftypeとdefrecordとreify</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_動機">動機</a></li>
+<li><a href="#_基本">基本</a></li>
+<li><a href="#_deftypeとdefrecord">deftypeとdefrecord</a></li>
+<li><a href="#_なぜdeftypeとdefrecordの両方があるのか">なぜdeftypeとdefrecordの両方があるのか?</a></li>
+<li><a href="#_データ型とプロトコルには強い主張がある">データ型とプロトコルには強い主張がある</a></li>
+<li><a href="#_reify">reify</a></li>
+<li><a href="#_javaアノテーションサポート">Javaアノテーションサポート</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_動機">動機</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Clojureは抽象に基づいて記述されている。シーケンス、コレクション、コーラビリティなどの抽象が存在する。加えてClojureはこれらの抽象の複数の実装を提供している。これらの抽象はホストのインターフェース、実装はホストのクラスで定義されている。これは言語自身のブートストラップには十分だったものの、Clojureが同様の抽象化と低レベルの実装の機構を欠く原因になっていた。
+<a href="protocols">プロトコル</a> と <a href="datatypes">データ型</a>
+という機能は、強力で柔軟な抽象化とデータ構造定義のメカニズムをホストプラットフォームの機構に対して妥協することなく提供する。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_基本">基本</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>データ型機能 -
+<a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/deftype">deftype</a>と
+<a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defrecord">defrecord</a>と
+<a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/reify">reify</a>は抽象の実装を定義するメカニズムを提供し、reifyについてはそれらの実装のインスタンスを提供する。抽象自体は
+<a href="protocols">プロトコル</a>もしくはインターフェースによって定義される。データ型はホストの型(deftypeとdefrecordについては名前付き、reifyの場合は匿名)と何らかの構造(deftypeとdefrecordについては明示的なフィールド、reifyの場合は暗黙的なクロージャー)及び任意の型の抽象メソッドの実装を提供する。これらは比較的綺麗な方法でホストの最もパフォーマンスの良いプリミティヴへのアクセスとポリモーフィズム機構をサポートする。これらはただホストを括弧の中に記述するメカニズムではなく、ホストの機能の制限されたサブセットのみをサポートしており、多くの場合ホスト自身よりも動的である点に注意する必要がある。意図としては、ホストとの連携のために制限されたスコープの外に出る必要がない限り、プラットフォーム上で最もパフォーマンスの良いデータ構造を手にするためにClojureを離れる必要はない。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deftypeとdefrecord">deftypeとdefrecord</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/deftype">deftype</a>と
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defrecord">defrecord</a>は、与えられたフィールドと任意のプロトコル/インターフェースのメソッドを持つ、名前付きのクラスのコンパイル済みバイトコードを動的に生成する。これらは動的でインタラクティブな開発に向いており、AOTコンパイルを行う必要もなく、単一のセッション内で再評価を行うこともできる。名前付きのフィールドを持つデータ構造を生成する点ではdefstructと似ているが、以下の点で異なる:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>与えられた名前に対応するフィールドを持つユニークなクラスを生成する。</p>
+</li>
+<li>
+<p>生成されたクラスは正当な型を持ち、メタデータに型をエンコードするdefstructの規約とは異なる</p>
+</li>
+<li>
+<p>名前付きのクラスを生成するため、アクセス可能なコンストラクターを持つ</p>
+</li>
+<li>
+<p>フィールドはプリミティブ型を含む型ヒントを持つことができる</p>
+<div class="ulist">
+<ul>
+<li>
+<p>注:
+現在、非プリミティブな型ヒントはフィールドの型やコンストラクターの引数を制限するものではないが、クラスメソッドの利用時の最適化のために使用される</p>
+</li>
+<li>
+<p>フィールドやコンストラクターの型の制限は計画されている</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>deftype/defrecordは1つ以上のプロトコルもしくはインターフェースを実装することができる</p>
+</li>
+<li>
+<p>deftype/defrecordは特別なリーダーシンタックス #my.thing[1 2 3] で記述することができる:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>ベクターの各要素がdeftype/defrecordのコンストラクターに評価されずに渡される</p>
+</li>
+<li>
+<p>deftype/defrecordの名前は完全修飾されている必要がある</p>
+</li>
+<li>
+<p>Clojureのバージョン1.3以降でのみ利用可能</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>deftype/defrecord Fooが定義された場合、対応する引数をコンストラクターに渡す関数 <code>->Foo</code>
+が定義される(バージョン1.3以降)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/deftype">deftype</a>と
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defrecord">defrecord</a>は以下のように異なる:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>deftypeはコンストラクター以外にはユーザーに明示されていないいかなる機能も提供しない</p>
+</li>
+<li>
+<p>defrecordは以下を含む永続的なマップの完全な実装を提供する:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>値に基づく同値比較とhashCode</p>
+</li>
+<li>
+<p>メタデータのサポート</p>
+</li>
+<li>
+<p>associativeのサポート</p>
+</li>
+<li>
+<p>フィールドのキーワードアクセサ</p>
+</li>
+<li>
+<p>拡張可能なフィールド(defrecordの定義にないフィールドのキーをassocすることができる)</p>
+</li>
+<li>
+<p>など</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>deftypeはミュータブルなフィールドをサポートするが、defrecordはサポートしない</p>
+</li>
+<li>
+<p>defrecordは加えて初期値のマップを受け取る#my.record{:a 1, :b 2}のリーダーフォームをサポートする:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>defrecord名は完全修飾されている必要がある</p>
+</li>
+<li>
+<p>マップ内の要素は評価されない</p>
+</li>
+<li>
+<p>既存のdefrecordフィールドは対応するキーの値に初期化される</p>
+</li>
+<li>
+<p>リテラルマップに対応するキーのないdefrecordフィールドはnilに初期化される</p>
+</li>
+<li>
+<p>defrecordフィールド以外のキーは許容されており、defrecordに追加される</p>
+</li>
+<li>
+<p>Clojureバージョン1.3以降で利用可能</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>defrecord Barが定義された場合、受け取ったマップの値でインスタンスの初期化を行う <code>map->Bar</code>
+が定義される(バージョン1.3以降)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_なぜdeftypeとdefrecordの両方があるのか">なぜdeftypeとdefrecordの両方があるのか?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>結論としては、ほとんどのOOプログラムは明確に2つに分類される:実装/プログラミングのドメインのもの(例えばStringやコレクションのクラス、もしくはClojureの参照型)とアプリケーションドメインの情報を表現するクラス(例えば従業員、購入注文など)だ。アプリケーションドメインの情報にクラスが使用されることは常に不幸な特徴であった。クラス特有のマイクロ言語の背後に情報が隠されてしてしまうことにつながるからだ。例えば一見無害なemployee.getName()もデータに対する特別なインターフェースだ。そのようなクラスに情報を入れることは、全ての本が異なる言語で書かれていたら問題になるのと同じように問題だ。情報を処理する際に一般的なアプローチを取ることができなくなり、無用な特殊性の爆発を招き、再利用を不可能にする。</p>
+</div>
+<div class="paragraph">
+<p>Clojureが常に情報をマップに入れるように奨励してきたのはこれが理由で、データ型についてもこの奨励は変わらない。
+defrecordを使用することによって、一般的に操作可能な情報に加えて、型駆動のポリモーフィズムというさらなる恩恵やフィールド構造による効率性も得ることができる。その一方でベクターのようなコレクションを定義するデータ型にマップのデフォルト実装を持たせる意味はなく、deftypeはそのようなプログラミングのための構造を定義することに向いている。</p>
+</div>
+<div class="paragraph">
+<p>全体として、レコードは情報を持つあらゆる目的でstructmapよりも優れており、そのようなstructmapはdefrecordに移行するべきだ。プログラミングのための構造にstructmapを使用する可能性は低いだろうが、そのような場合にはdeftypeがはるかに向いている。</p>
+</div>
+<div class="paragraph">
+<p>deftype/defrecordの事前コンパイルは制約が障害にならないいくつかの <strong>gen-class</strong>
+のユースケースに適していると思われる。そのような場合はgen-classよりもパフォーマンスが良くなる。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_データ型とプロトコルには強い主張がある">データ型とプロトコルには強い主張がある</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>datatypeとprotocolはホストの言語構造と明瞭な関係を持っており、Clojureの機能をJavaのプログラムに提供する良い手段ではあるものの、ホストとの連携のための言語構造ではない。つまりは、ホストの全てのOOのメカニズムを完全に真似したり適合させたりするための努力は一切していない。具体的には以下の意見を反映している:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>具象的な派生は悪手だ</p>
+<div class="ulist">
+<ul>
+<li>
+<p>具象クラスからデータ型を派生させることはできず、インターフェースからのみ行える</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>常にプロトコルもしくはインターフェースに対してプログラムするべきだ</p>
+<div class="ulist">
+<ul>
+<li>
+<p>データ型はそのプロトコルもしくはインターフェースで定義されていないメソッドを公開することはできない</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>イミュータブルがデフォルトであるべきだ</p>
+<div class="ulist">
+<ul>
+<li>
+<p>レコードについては唯一の選択肢となっている</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>情報のカプセル化は愚かだ</p>
+<div class="ulist">
+<ul>
+<li>
+<p>フィールドはパブリックであり、依存関係を避けるためにプロトコルもしくはインターフェースを利用する</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>ポリモーフィズムと継承を結びつけることは悪手だ</p>
+<div class="ulist">
+<ul>
+<li>
+<p>プロトコルを利用することでこれを避けることができる</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>データ型とプロトコルを利用すると、Javaの利用者にインターフェースに基づく綺麗なAPIを提供することができる。インターフェースに基づく綺麗なJava
+APIを利用している場合はデータ型とプロトコルを利用することで連携することも、拡張を行うことも可能になる。「悪い」Java
+APIがある場合は、gen-classを利用する必要がある。これがClojureプログラムを設計し、実装する際にOOがもたらす偶発的な複雑性を避ける唯一の方法だ。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reify">reify</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>deftypeとdefrecordは名前付きの型を定義するが、
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/reify">reify</a>
+は匿名の型を定義しその型のインスタンスを作成する。ユースケースは、一度限りの1つ以上のインターフェース/プロトコルの実装でローカルコンテキストを利用したい場合だ。この観点からはproxyやJavaの匿名内部クラスのユースケースに似ている。</p>
+</div>
+<div class="paragraph">
+<p>reifyのメソッドボディはレキシカルクロージャーで、周囲のローカルスコープを参照することができる。 <strong>reify</strong>  は以下の点で <strong>proxy</strong>
+と異なる:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>プロトコルもしくはインターフェースのみがサポートされており、具象スーパークラスはサポートされない。</p>
+</li>
+<li>
+<p>メソッドのボディは外部の関数ではなく、結果として得られるクラスの本物のメソッドである。</p>
+</li>
+<li>
+<p>インスタンスに対するメソッド呼び出しはマップのルックアップを行うことなく直接実行される。</p>
+</li>
+<li>
+<p>メソッドマップのメソッドの動的なスワップはサポートされていない。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>この結果得られるのは、構築と呼び出しどちらにおいてもproxyより優れたパフォーマンスだ。 <strong>reify</strong>
+はその制約が障害にならない限り、あらゆるケースにおいてproxyよりも推奨される。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_javaアノテーションサポート">Javaアノテーションサポート</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>deftype、defrecord、及びdefinterfaceで作成された型は、Javaとの連携のためにJavaアノテーションを含むクラスを生成することができる。アノテーションは以下に対するメタデータとして記述される:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>型名(deftype/record/interface) - クラスアノテーション</p>
+</li>
+<li>
+<p>フィールド名(deftype/record) - フィールドアノテーション</p>
+</li>
+<li>
+<p>メソッド名(deftype/record) - メソッドアノテーション</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>例:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(import [java.lang.annotation Retention RetentionPolicy Target ElementType]
+        [javax.xml.ws WebServiceRef WebServiceRefs])
+
+(definterface Foo (foo []))
+
+;; annotation on type
+(deftype ^{Deprecated true
+           Retention RetentionPolicy/RUNTIME
+           javax.annotation.processing.SupportedOptions ["foo" "bar" "baz"]
+           javax.xml.ws.soap.Addressing {:enabled false :required true}
+           WebServiceRefs [(WebServiceRef {:name "fred" :type String})
+                           (WebServiceRef {:name "ethel" :mappedName "lucy"})]}
+  Bar [^int a
+       ;; on field
+       ^{:tag int
+         Deprecated true
+         Retention RetentionPolicy/RUNTIME
+         javax.annotation.processing.SupportedOptions ["foo" "bar" "baz"]
+         javax.xml.ws.soap.Addressing {:enabled false :required true}
+         WebServiceRefs [(WebServiceRef {:name "fred" :type String})
+                         (WebServiceRef {:name "ethel" :mappedName "lucy"})]}
+       b]
+  ;; on method
+  Foo (^{Deprecated true
+         Retention RetentionPolicy/RUNTIME
+         javax.annotation.processing.SupportedOptions ["foo" "bar" "baz"]
+         javax.xml.ws.soap.Addressing {:enabled false :required true}
+         WebServiceRefs [(WebServiceRef {:name "fred" :type String})
+                         (WebServiceRef {:name "ethel" :mappedName "lucy"})]}
+       foo [this] 42))
+
+(seq (.getAnnotations Bar))
+(seq (.getAnnotations (.getField Bar "b")))
+(seq (.getAnnotations (.getMethod Bar "foo" nil)))</code></pre>
+</div>
+</div>
+</div>
+</div></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>

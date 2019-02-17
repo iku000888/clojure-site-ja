@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - 並行プログラミング</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>並行プログラミング</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div class="paragraph">
+<p>今日のシステムは多くの同時タスクを扱わなければならず、マルチコアCPUの力を活用しなければならない。スレッドでそれを行うのは同期の複雑さのため非常に困難になりうる。Clojureは複数の方法でマルチスレッドプログラミングをシンプルなものにしている。コアとなるデータ構造がイミュータブルなため、簡単にスレッド間で共有できる。しかし、プログラムで状態変更が必要になることはよくある。実用的な言語であるClojureは、状態の変更を認めているが、ロックなどを利用して手動で競合を避けなければならないことから開発者の負担を軽減する一方で、状態を変更する時にはそれが一貫していることを保証するメカニズムを提供している。
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/dosync">dosync</a>,
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ref">ref</a>,
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ref-set">ref-set</a>,
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/alter">alter</a>
+などを通して提供されている <a href="xref/../../reference/refs">software transactional
+memoryシステム</a> (STM)は、<em>同期的</em> で <em>協調的</em> な方法でのスレッド間での状態変更の <em>共有</em> をサポートしている。
+<a href="xref/../../reference/agents">agent</a> システムは、 <em>非同期的</em> で <em>独立</em>
+した方法でのスレッド間での状態変更の共有をサポートしている。 <a href="xref/../../reference/atoms">atom</a> システムは、
+<em>同期的</em> で <em>独立</em> した方法でのスレッド間での状態変更の共有をサポートしている。
+<a href="xref/../../reference/special_forms#def">def</a>,
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/binding">binding</a>
+などを通して提供されている <a href="xref/../../reference/vars">動的varシステム</a>
+は、スレッド内での状態変更の隔離をサポートしている。</p>
+</div>
+<div class="paragraph">
+<p>いずれの場合でも、ClojureはJavaのスレッドシステムを置き換えるのではなく、むしろそれとともに機能する。Clojureの関数はjava.util.concurrent.Callableであるため、Executorフレームワークなどで動作する。</p>
+</div>
+<div class="paragraph">
+<p>これについてより詳しくは <a href="https://www.youtube.com/watch?v=nDAfZK8m5_8">concurrency
+screencast</a> でカバーされている。</p>
+</div>
+<div class="paragraph">
+<p><a href="xref/../../reference/refs">Ref</a> はオブジェクトに対するミュータブルな参照だ。
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ref-set">ref-set</a>
+や
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/alter">alter</a>
+でトランザクション中に別のオブジェクトを参照するようにすることができ、そのトランザクションは
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/dosync">dosync</a>
+ブロックによって区切られる。トランザクションにおけるrefの変更はすべて起こるか全く起こらないかのどちらかだ。また、トランザクション内でのrefの読み取りは特定の時点での参照の世界のスナップショットを反映している、つまり各トランザクションは他のトランザクションから隔離されている。同一の参照を変更しようとする2つのトランザクションの間で競合が生じた場合、そのうち一方がリトライされる。これらすべてのことは明示的なロックを用いることなく生じる。</p>
+</div>
+<div class="paragraph">
+<p>この例では、整数を保持するRefのベクターが作られ <em>(refs)</em> 、それぞれのRefをインクリメントする多数の繰り返し処理
+<em>(tasks)</em> を実行するためのスレッド <em>(pool)</em>
+が用意される。これは激しい競合を引き起こすが、正しい結果が得られる。全くロックを使うことなくだ!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(import '(java.util.concurrent Executors))
+
+(defn test-stm [nitems nthreads niters]
+  (let [refs  (map ref (repeat nitems 0))
+        pool  (Executors/newFixedThreadPool nthreads)
+        tasks (map (fn [t]
+                      (fn []
+                        (dotimes [n niters]
+                          (dosync
+                            (doseq [r refs]
+                              (alter r + 1 t))))))
+                   (range nthreads))]
+    (doseq [future (.invokeAll pool tasks)]
+      (.get future))
+    (.shutdown pool)
+    (map deref refs)))
+
+(test-stm 10 10 10000)
+-&gt; (550000 550000 550000 550000 550000 550000 550000 550000 550000 550000)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>典型的な利用方法では、refは永続的でイミュータブルなClojureのコレクションを参照し、複数のトランザクションによる同時の投機的な「変更」を効率的にサポートしている。ミュータブルなオブジェクトをrefに入れるべきではない。</p>
+</div>
+<div class="paragraph">
+<p>デフォルトではVarは静的だが、 <a href="xref/../../reference/metadata">メタデータ</a>
+とともに定義されたVarのスレッド別の束縛は動的(dynamic)とマークされる。
+<a href="xref/../../reference/vars">動的var</a> もまたオブジェクトに対するミュータブルな参照だ。動的varは、
+<a href="xref/../../reference/special_forms#def">def</a> で作られる(スレッド共有の)ルート束縛を持ち、
+<strong><em>set!</em></strong> を使って設定することができるが、それが可能なのは
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/binding">binding</a>
+を使って新しい格納先にスレッドローカルに束縛された場合だけだ。そうした束縛や束縛に対するその後のあらゆる変更は、スレッド <em>内</em>
+でbindingブロックの動的スコープ内のコードからのみ見ることができる。ネストされた束縛はスタックのルールに従い、制御がbindingブロックを出ると巻き戻される。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(def ^:dynamic *v*)
+
+(defn incv [n] (set! *v* (+ *v* n)))
+
+(defn test-vars [nthreads niters]
+  (let [pool (Executors/newFixedThreadPool nthreads)
+        tasks (map (fn [t]
+                     #(binding [*v* 0]
+                        (dotimes [n niters]
+                          (incv t))
+                        *v*))
+                   (range nthreads))]
+      (let [ret (.invokeAll pool tasks)]
+        (.shutdown pool)
+        (map #(.get %) ret))))
+
+(test-vars 10 1000000)
+-&gt; (0 1000000 2000000 3000000 4000000 5000000 6000000 7000000 8000000 9000000)
+(set! *v* 4)
+-&gt; java.lang.IllegalStateException: Can't change/establish root binding of: *v* with set</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>動的varは、コールスタックの異なる点の間で、介在する呼び出しの引数リストや戻り値を汚すことなくコミュニケーションする方法を提供する。加えて、動的varはコンテキスト指向プログラミングのようなものをサポートする。
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defn">defn</a>
+で定義されたfnはvarに格納されるため、動的に再束縛することが可能だ:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(defn ^:dynamic say [&amp; args]
+  (apply str args))
+
+(defn loves [x y]
+  (say x " loves " y))
+
+(defn test-rebind []
+  (println (loves "ricky" "lucy"))
+  (let [say-orig say]
+    (binding [say (fn [&amp; args]
+                      (println "Logging say")
+                      (apply say-orig args))]
+      (println (loves "fred" "ethel")))))
+
+(test-rebind)
+
+ricky loves lucy
+Logging say
+fred loves ethel</code></pre>
+</div>
+</div></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>

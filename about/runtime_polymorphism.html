@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - 実行時ポリモーフィズム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>実行時ポリモーフィズム</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div class="paragraph">
+<p>実行時ポリモーフィズムを利用するシステムは変更や拡張がしやすい。Clojureは複数の方法でポリモーフィズムをサポートしている:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Clojureランタイムにおけるほとんどのコアとなる基盤データ構造はJavaインターフェースで定義されている。</p>
+</li>
+<li>
+<p>Clojureは
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/proxy">proxy</a>
+を使うことでClojureでのJavaインターフェースの生成をサポートしている( <a href="jvm_hosted">JVMにホストされた言語</a> 参照)。</p>
+</li>
+<li>
+<p>Clojure言語は <a href="xref/../../reference/multimethods">マルチメソッド</a>
+でクラスとカスタム階層の両方でのポリモーフィズムをサポートしている。</p>
+</li>
+<li>
+<p>Clojure言語は <a href="xref/../../reference/protocols">プロトコル</a>
+でポリモーフィズムのより高速な形式もサポートしている(しかし、JVMの既存の呼び出し能力を活用するためクラスのポリモーフィズムに限定されている)。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Clojureのマルチメソッドはシンプルだが実行時ポリモーフィズムのための強力なメカニズムで、OOの型と継承という罠を免れている。実行時ポリモーフィズムの背後にある基本的なアイディアは、指示者である単一の関数が、呼び出しの何らかの値に基づいて、複数の独立して定義された関数定義にディスパッチするというものだ。伝統的なシングルディスパッチのOO言語ではその値は「レシーバー」または「this」の型だ。CLOSの総称関数は、ディスパッチ値を複数の引数の型または値の組み合わせに拡張していることから、マルチメソッドだといえる。Clojureのマルチメソッドはさらに先を行っていて、ディスパッチ値を引数に対する任意の関数の結果とすることを可能にしている。Clojureは実装継承をサポートしていない。</p>
+</div>
+<div class="paragraph">
+<p>マルチメソッドは、マルチメソッドの名前とディスパッチ関数をとる、
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defmulti">defmulti</a>
+を使って定義する。メソッドは、マルチメソッドの名前とディスパッチ <em>値</em> 、関数本体を渡す、
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defmethod">defmethod</a>
+を使って独立して定義する。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(defmulti encounter (fn [x y] [(:Species x) (:Species y)]))
+(defmethod encounter [:Bunny :Lion] [b l] :run-away)
+(defmethod encounter [:Lion :Bunny] [l b] :eat)
+(defmethod encounter [:Lion :Lion] [l1 l2] :fight)
+(defmethod encounter [:Bunny :Bunny] [b1 b2] :mate)
+(def b1 {:Species :Bunny :other :stuff})
+(def b2 {:Species :Bunny :other :stuff})
+(def l1 {:Species :Lion :other :stuff})
+(def l2 {:Species :Lion :other :stuff})
+(encounter b1 b2)
+-&gt; :mate
+(encounter b1 l1)
+-&gt; :run-away
+(encounter l1 b1)
+-&gt; :eat
+(encounter l1 l2)
+-&gt; :fight</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>マルチメソッドはあらゆる面でfnであり、例えば
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/map">map</a>
+などに渡すことができる。</p>
+</div>
+<div class="paragraph">
+<p>インターフェースに似ていて、Clojureのプロトコルは関数の仕様だけを定義し(実装は定義しない)、型が複数のプロトコルを実装することを認めている。加えて、プロトコルは後に新たな型に動的に拡張することにも開いている。プロトコルは、ネイティヴのJavaのポリモーフィックなメソッド呼び出しのパフォーマンスを活用するためにクラスの型でのディスパッチだけに限定されている。より詳しくは
+<a href="xref/../../reference/protocols">プロトコル</a> のページを参照。</p>
+</div></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - マルチメソッドとヒエラルキー</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>マルチメソッドとヒエラルキー</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_isa_に基づくディスパッチ">isa? に基づくディスパッチ</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Clojure
+は状況ごとに新しいデータ型を定義するような伝統的オブジェクト指向のアプローチを避け、代わりに少ないデータ型に対する関数群からなる巨大なライブラリを構築することを好む。しかしながら、Clojureも柔軟で拡張可能なシステムアーキテクチャを可能にするランタイムポリモーフィズムの価値は認識している。Clojureはタイプ、値、属性と引数のメタデータ、ひとつ以上の引数の関連性によるディスパッチをサポートするマルチメソッドシステムを通して洗練されたランタイムポリモーフィズムを提供する。</p>
+</div>
+<div class="paragraph">
+<p>Clojureのマルチメソッドは <em>ディスパッチ関数</em> と一つ以上の <em>メソッド</em> で定義される。 <em><strong>defmulti</strong></em>
+を使用してマルチメソッドを定義する場合、ディスパッチ関数を与える必要がある。この関数が <em>ディスパッチ値</em>
+の生成のためにマルチメソッドの引数に適用される。マルチメソッドはその後ディスパッチ値、もしくはディスパッチ値から導出された値と関連するメソッドを探索しする。関連するメソッドが定義されている場合、(
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defmethod">defmethod</a>
+経由)、そのメソッドディスパッチ値を引数として呼び出される。ディスパッチ値と関連するメソッドの定義が存在しない場合、マルチメソッドはデフォルトのディスパッチ値と関連するメソッドを探索し(デフォルトは
+<em><strong>:default</strong></em>)、存在する場合それを仕様する。存在しない場合、マルチメソッドの呼び出しはエラーとなる。</p>
+</div>
+<div class="paragraph">
+<p>マルチメソッドシステムはこのAPIを提供している:
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defmulti">defmulti</a>
+マルチメソッドを新しく作成する、
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defmethod">defmethod</a>
+ディスパッチ値と関連するメソッドをマルチメソッドに新しく定義する。
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/remove-method">remove-method</a>
+ディスパッチ値と関連するメソッドを削除する。
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/prefer-method">prefer-method</a>
+メソッドの間の優先順位が曖昧な場合に優先順位を定義する。</p>
+</div>
+<div class="paragraph">
+<p>導出はJavaの継承(クラス値)、もしくはClojureのアドホックなヒエラルキーシステムの組み合わせで判断される。ヒエラルキーシステムは名前(シンボル、もしくはキーワード)間、またはクラスと名前の関連性を利用した導出をサポートしている。
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/derive">derive</a>
+関数はこの関連性を作成し、 the
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/isa?">isa?</a>
+関数が関連性の存在をテストする。
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/isa?">isa?</a>
+と
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/instance?">instance?</a>
+は異なる点に注意。</p>
+</div>
+<div class="paragraph">
+<p>(derive child parent)
+を使って階層的な関連を定義することが出来る。子と親にはネームスペースで修飾されたシンボルとキーワードを使用することが出来る:</p>
+</div>
+<div class="paragraph">
+<p><em>注: :: のリーダー文法をキーワードに使用すると(::keywords)名前空間に解決される。</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">::rect
+-&gt; :user/rect</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>基本的には
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/derive">derive</a>を使って関係性を作る。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(derive ::rect ::shape)
+(derive ::square ::rect)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/parents">parents</a>
+/
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ancestors">ancestors</a>
+/
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/descendants">descendants</a>
+と
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/isa%3F">isa?</a>を使うことでヒエラルキーについて調べることが出来る。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(parents ::rect)
+-&gt; #{:user/shape}
+
+(ancestors ::square)
+-&gt; #{:user/rect :user/shape}
+
+(descendants ::shape)
+-&gt; #{:user/rect :user/square}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>(= x y)</code> が真なら <code>(isa? x y)</code> も真となる。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(isa? 42 42)
+-&gt; true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>`isa?`はヒエラルキーシステムを使う。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(isa? ::square ::shape)
+-&gt; true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>クラスを子として使うことも出来る。(親としては使えない、何かのクラスの子を定義することはJavaの継承関係を通してしか出来ない)。</p>
+</div>
+<div class="paragraph">
+<p>これを使用して既存のJavaクラスのヒエラルキーに新たな分類を重ねて定義することが可能になる:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(derive java.util.Map ::collection)
+(derive java.util.Collection ::collection)
+
+(isa? java.util.HashMap ::collection)
+-&gt; true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/isa%3F">isa?</a>
+はクラス間の関連性についてもテストする。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(isa? String Object)
+-&gt; true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/parents">parents</a>
+/
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ancestors">ancestors</a>
+も同様。(<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/descendants">descendants</a>
+は子孫はオープンセットであるため異なる。)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(ancestors java.util.ArrayList)
+-&gt; #{java.lang.Cloneable java.lang.Object java.util.List
+    java.util.Collection java.io.Serializable
+    java.util.AbstractCollection
+    java.util.RandomAccess java.util.AbstractList}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/isa%3F">isa?</a>
+はベクターに対しても使用することが出来る。その場合、
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/isa%3F">isa?</a>
+を各要素に対して呼び出した結果を返す:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(isa? [::square ::rect] [::shape ::shape])
+-&gt; true</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_isa_に基づくディスパッチ">isa? に基づくディスパッチ</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>マルチメソッドはディスパッチ値の比較に=ではなく、
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/isa%3F">isa?</a>
+を使用する。
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/isa%3F">isa?</a>
+で最初に行われる比較は=なので同値の場合でも正しい結果になる。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(defmulti foo class)
+(defmethod foo ::collection [c] :a-collection)
+(defmethod foo String [s] :a-string)
+
+(foo [])
+:a-collection
+
+(foo (java.util.HashMap.))
+:a-collection
+
+(foo "bar")
+:a-string</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/prefer-method">prefer-method</a>
+はディスパッチ値が複数マッチし、どちらを優先するべきか曖昧な場合に順序を付けることに使用する。マルチメソッド毎に特定のディスパッチ値が別のディスパッチ値よりも優先されることを宣言することが出来る:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(derive ::rect ::shape)
+
+(defmulti bar (fn [x y] [x y]))
+(defmethod bar [::rect ::shape] [x y] :rect-shape)
+(defmethod bar [::shape ::rect] [x y] :shape-rect)
+
+(bar ::rect ::rect)
+-&gt; java.lang.IllegalArgumentException:
+   Multiple methods match dispatch value:
+   [:user/rect :user/rect] -&gt; [:user/rect :user/shape]
+   and [:user/shape :user/rect],
+   and neither is preferred
+
+(prefer-method bar [::rect ::shape] [::shape ::rect])
+(bar ::rect ::rect)
+-&gt; :rect-shape</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>上記の全ての例ではマルチメソッドシステムが使用するグローバルなヒエラルキーを使用しているが、
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/make-hierarchy">make-hierarchy</a>
+で完全に独立したヒエラルキーを作ることも可能で、上記の全ての関数は任意でヒエラルキーを第一引数に取ることが出来る。</p>
+</div>
+<div class="paragraph">
+<p>このシンプルなシステムは非常に強力だ。Clojureのマルチメソッドと伝統的なJavaスタイルのシングルディスパッチの関係を理解するひとつの方法は、シングルディスパッチはClojureのマルチメソッドにおいてディスパッチ関数が第一引数に対してgetClassを呼び出し、かつメソッドがそのクラスと関連しているようなものだ。Clojureのマルチメソッドはクラスや型と密に結びついていないため、複数の引数のどのような属性に基づくことが出来、また引数に対するバリデーションを行いエラー処理メソッドを呼び出すこと等が可能になる。</p>
+</div>
+<div class="paragraph">
+<p><em>注: この例ではキーワード :Shape がディスパッチ関数として使われている。 <a href="data_structures">Data
+Structures</a> のセクションで説明されている通り、キーワードはマップに対する関数だからだ。</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(defmulti area :Shape)
+(defn rect [wd ht] {:Shape :Rect :wd wd :ht ht})
+(defn circle [radius] {:Shape :Circle :radius radius})
+(defmethod area :Rect [r]
+    (* (:wd r) (:ht r)))
+(defmethod area :Circle [c]
+    (* (. Math PI) (* (:radius c) (:radius c))))
+(defmethod area :default [x] :oops)
+(def r (rect 4 13))
+(def c (circle 12))
+(area r)
+-&gt; 52
+(area c)
+-&gt; 452.3893421169302
+(area {})
+-&gt; :oops</code></pre>
+</div>
+</div>
+</div>
+</div></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>

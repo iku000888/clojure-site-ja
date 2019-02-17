@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - REPLとmainエントリーポイント</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>REPLとmainエントリーポイント</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_clojure_mainネームスペース">clojure.mainネームスペース</a></li>
+<li><a href="#_clojure_main_help">clojure.main --help</a></li>
+<li><a href="#_replの起動">REPLの起動</a></li>
+<li><a href="#_スクリプトの起動">スクリプトの起動</a></li>
+<li><a href="#_スクリプトに引数を渡す">スクリプトに引数を渡す</a></li>
+<li><a href="#_ソケットサーバーの起動">ソケットサーバーの起動</a></li>
+<li><a href="#_関連する関数">関連する関数</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clojure_mainネームスペース">clojure.mainネームスペース</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>clojure.main</code> のネームスペースはJavaのアプリケーションランチャーツール <code>java</code>
+からClojureプログラムやインタラクティブなセッションを起動するための関数を提供している。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clojure_main_help">clojure.main --help</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>clojure.main/main</code> のエントリーポイントは多様な引数とフラグを受けとる:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>オプションと引数の指定がない場合、インタラクティブな REPL (Read-Eval-Print Loop) を実行する</p>
+</li>
+<li>
+<p>initオプション:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>-i, --init パス ファイル、もしくはリソースをロードする</p>
+</li>
+<li>
+<p>-e, --eval 文字列 文字列中の式を評価する; 非nilな値をプリントする</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>mainオプション:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>-r, --repl replを実行する</p>
+</li>
+<li>
+<p>path ファイル、もしくはリソースからスクリプトを実行する</p>
+</li>
+<li>
+<p>- 標準入力からスクリプトを実行する</p>
+</li>
+<li>
+<p>-m, --main 実行対象の -main 関数を含むネームスペース</p>
+</li>
+<li>
+<p>-h, -?, --help このメッセージをプリントし終了する</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>操作:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>一般的に利用される set! 操作が可能な var に対してスレッドローカルな束縛を行う</p>
+</li>
+<li>
+<p>userネームスペースに切り替える</p>
+</li>
+<li>
+<p><strong>command-line-args</strong> を、mainオプションの後に指定されたコマンドライン引数を含む文字列シーケンスに束縛する</p>
+</li>
+<li>
+<p>全てのinitオプションを順に実行する</p>
+</li>
+<li>
+<p>repl、もしくは指定があればスクリプトを実行する</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>initオプションは繰り返しても良いし任意に組み合せることができるが、mainオプションよりも前に指定する必要がある。replの実行前にevalのオプションが指定されている場合、通常のreplのグリーティングメッセージが表示されなくなる:
+"Clojure ~(clojure-version)"</p>
+</div>
+<div class="paragraph">
+<p>パスは絶対パス、もしくはファイルシステムの相対パス、クラスパスに対する相対パスを指定できる。クラスパスに対する相対パスは @ もしくは @/
+でプリフィックスされる。</p>
+</div>
+<div class="paragraph">
+<p>usageメッセージに同様の内容が記述されている:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-shell" data-lang="shell">Usage: java -cp clojure.jar clojure.main [init-opt*] [main-opt] [arg*]
+
+With no options or args, runs an interactive Read-Eval-Print Loop
+
+init options:
+-i, --init path Load a file or resource
+-e, --eval string Evaluate expressions in string; print non-nil values
+
+main options:
+-r, --repl Run a repl
+path Run a script from a file or resource
+- Run a script from standard input
+-m, --main A namespace to find a -main function for execution
+-h, -?, --help Print this help message and exit
+
+operation:
+
+- Establishes thread-local bindings for commonly set!-able vars
+- Enters the user namespace
+- Binds *command-line-args* to a seq of strings containing command line
+args that appear after any main option
+- Runs all init options in order
+- Runs a repl or script if requested
+
+The init options may be repeated and mixed freely, but must appear before
+any main option. The appearance of any eval option before running a repl
+suppresses the usual repl greeting message: "Clojure ~(clojure-version)".
+
+Paths may be absolute or relative in the filesystem or relative to
+classpath. Classpath-relative paths have prefix of @ or @/</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_replの起動">REPLの起動</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Clojureの <em>repl</em> を起動する最もシンプルな方法はClojureのホームディレクトリから次のコマンドを使用することだ:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-shell" data-lang="shell">java -cp clojure.jar clojure.main</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>REPLプロンプトは現在のネームスペースの名前 (*ns*) を表示し、デフォルトは <em>user</em> である。</p>
+</div>
+<div class="paragraph">
+<p>REPLを利用している際には、特別なvarをいくつか利用できる:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>*1, *2, *3 - 評価済みの最後の3つの式の結果を保持する</p>
+</li>
+<li>
+<p>*e - 最後に発生した例外の結果を保持する</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://clojure.github.io/clojure/clojure.repl-api.html">clojure.repl</a>
+ネームスペースには、利用可能な関数のソースやドキュメントの閲覧に有用な関数がいくつもある:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://clojure.github.io/clojure/clojure.repl-api.html#clojure.repl/doc">doc</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>指定された名前のvarのdocstringをプリントする</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://clojure.github.io/clojure/clojure.repl-api.html#clojure.repl/find-doc">find-doc</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>指定されたパターンに一致するdocか名前を持つ全てのvarのdocstringをプリントする。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://clojure.github.io/clojure/clojure.repl-api.html#clojure.repl/apropos">apropos</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>regexにマッチする定義のseqを返す</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://clojure.github.io/clojure/clojure.repl-api.html#clojure.repl/source">source</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>シンボルのソースをプリントする</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://clojure.github.io/clojure/clojure.repl-api.html#clojure.repl/pst">pst</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>指定された例外、もしくは *eのスタックトレースをプリントする (<strong>p</strong>rint <strong>s</strong>tack <strong>t</strong>race)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_スクリプトの起動">スクリプトの起動</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Clojureコードが書かれたファイルをスクリプトとして実行するには、スクリプトのパスを <code>clojure.main</code> の引数として渡す:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-shell" data-lang="shell">java -cp clojure.jar clojure.main /path/to/myscript.clj</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_スクリプトに引数を渡す">スクリプトに引数を渡す</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>スクリプトの引数は <code>clojure.main</code> を起動する際の追加の引数として渡す:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-shell" data-lang="shell">java -cp clojure.jar clojure.main /path/to/myscript.clj arg1 arg2 arg3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>これらの引数はプログラム内のvar <code>*command-line-args*</code> に束縛された文字列のseqとしてプログラムに提供される:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-shell" data-lang="shell">*command-line-args* =&gt; ("arg1" "arg2" "arg3")</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ソケットサーバーの起動">ソケットサーバーの起動</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+この機能は1.8.0で追加された。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>現在のClojureランタイムではシステムプロパティを基に、初期化時にソケットサーバーを起動することが可能となっている。想定される活用方法の一つはソケットベースのREPLだが、他にも既存のプログラムのコードの変更を行わずに動的にサーバー機能を追加する様々なことに利用可能なポテンシャルがある。</p>
+</div>
+<div class="paragraph">
+<p>"clojure.server.&lt;server-name&gt;"
+のようなJVMシステムプロパティ全てに対してソケットサーバーが起動される。このプロパティの値には、ソケットサーバーの設定を表現する、下記のプロパティを持つednのマップを指定する:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>server-daemon</code> - デフォルトでtrue、ソケットサーバーのスレッドがexitをブロックしない</p>
+</li>
+<li>
+<p><code>address</code> - ホストもしくはアドレス、デフォルトはループバック</p>
+</li>
+<li>
+<p><code>port</code> - 正の整数、必須</p>
+</li>
+<li>
+<p><code>accept</code> - ソケットの受理時に呼び出される関数のネームスペース付きのシンボル、必須</p>
+</li>
+<li>
+<p><code>args</code> - acceptに渡す引数のシーケンシャルなコレクション</p>
+</li>
+<li>
+<p><code>bind-err</code> - デフォルトtrue、 <code>*err*</code> をソケットの出力ストリームに束縛する</p>
+</li>
+<li>
+<p><code>client-daemon</code> - デフォルトでtrue、ソケットのクライアントのスレッドがexitをブロックしない</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>加えて、ソケットサーバーでの利用のために少々カスタマイズされているrepl関数が
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core.server/repl">clojure.core.server/repl</a>
+にある。</p>
+</div>
+<div class="paragraph">
+<p>以下はソケットサーバーをreplリスナーとともに起動する例だ。これを任意のClojureプログラムに追加することで、外部からポート5555のローカルコネクションを経由したREPLクライアントを受理することが可能になる。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-shell" data-lang="shell">-Dclojure.server.repl="{:port 5555 :accept clojure.core.server/repl}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>このソケットreplには、例えばtelnetをクライアントとして接続することができる:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-shell" data-lang="shell">$ telnet 127.0.0.1 5555
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+user=&gt; (println "hello")
+hello</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>特別なコマンド <code>:repl/quit</code> を使用することで、サーバーに対してクライアントのソケットreplセッションのクローズを指示することができる:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure-repl" data-lang="clojure-repl">user=&gt; :repl/quit
+Connection closed by foreign host.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>以下も参照:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://dev.clojure.org/jira/browse/CLJ-1671">CLJ-1671</a></p>
+</li>
+<li>
+<p><a href="https://dev.clojure.org/display/design/Socket+Server+REPL">ソケットREPLの設計ページ</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_関連する関数">関連する関数</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mainエントリーポイント:
+<code><a href="https://clojure.github.io/clojure/clojure.main-api.html#clojure.main/main">clojure.main/main</a></code></p>
+</div>
+<div class="paragraph">
+<p>再利用可能なREPL:
+<code><a href="https://clojure.github.io/clojure/clojure.main-api.html#clojure.main/repl">clojure.main/repl</a></code></p>
+</div>
+<div class="paragraph">
+<p>一般的なREPL varへのset!を許可:
+<code><a href="https://clojure.github.io/clojure/clojure.main-api.html#clojure.main/with-bindings">clojure.main/with-bindings</a></code></p>
+</div>
+<div class="paragraph">
+<p>ソケットサーバーのコントロール:
+<code><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core.server/start-server">clojure.core.server/start-server</a></code>
+<code><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core.server/stop-server">clojure.core.server/stop-server</a></code>
+<code><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core.server/stop-servers">clojure.core.server/stop-servers</a></code></p>
+</div>
+<div class="paragraph">
+<p>ソケットrepl:
+<code><a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core.server/repl">clojure.core.server/repl</a></code></p>
+</div>
+</div>
+</div></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>

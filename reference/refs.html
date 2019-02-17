@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - Refとトランザクション</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>Refとトランザクション</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_例">例</a></li>
+<li><a href="#_関連する関数">関連する関数</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="vars">Vars</a> はスレッド間の <em>分離</em>
+によってミュータブルなストレージの安全な使用を保証しているが、トランザクショナルな参照(Ref)は
+<a href="http://en.wikipedia.org/wiki/Software_transactional_memory">software
+transactional memory</a> (STM) システムによってミュータブルなストレージの安全な <em>共有</em>
+を保証する。Refは最初から最後まで単一のストレージに束縛され、変更をトランザクションの中でしか許容しない。</p>
+</div>
+<div class="paragraph">
+<p>データベースのトランザクションを使用したことがあればClojureのトランザクションを理解することは容易だ -
+Refに対する全ての処理がアトミックで一貫性があり、分離されていることを保証する。アトミックとは、トランザクション内でのRefに対する変更が全て起こるか、一切起こらないかのどちらかであることを意味する。一貫性があるとは全ての新しい値に対して、トランザクションのコミットの前にバリデーション関数でチェックを行うことが出来ることを意味する。分離されているとはトランザクション内での影響は、トランザクションが動いている間は他のトランザクションから観測されないことを意味する。もう一つ、STMの一般的な機能としてトランザクションの動作中に競合が起こった場合の自動的なリトライもある。</p>
+</div>
+<div class="paragraph">
+<p>STMを実現するには複数の方式があり (ロック/悲観的, ロックフリー/楽観的 及び それらの混合)
+、未だに研究の対象となる問題である。ClojureのSTMは
+<a href="http://en.wikipedia.org/wiki/Multiversion_concurrency_control">multiversion
+concurrency control</a> と adaptive history queue を
+<a href="http://en.wikipedia.org/wiki/Snapshot_isolation">snapshot isolation</a>
+のために使用し、固有の
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/commute">commute</a>
+処理を提供している。</p>
+</div>
+<div class="paragraph">
+<p>これの現実的な意味は:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Refに対する全ての読み込みは 'Refの世界' の一貫性のあるスナップショットをトランザクションの開始地点のように観測する(トランザクションの
+'read point')。トランザクションはRefに対する全ての変更を <em>観測する</em> 。これを <em>in-transaction-value</em> と呼ぶ。</p>
+</li>
+<li>
+<p>トランザクション内に行われたRefに対する全ての変更(
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ref-set">ref-set</a>,
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/alter">alter</a>
+or
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/commute">commute</a>
+を使用)は 「Refの世界」 のタイムライン上の一点で起こったと映る (Refの 'wirte point') 。</p>
+</li>
+<li>
+<p>このトランザクション内で <em><strong>ref-set</strong></em> / <em><strong>altered</strong></em> / <em><strong>ensured</strong></em>
+されたRefには他のトランザクションからの変更はない。</p>
+</li>
+<li>
+<p>このトランザクションによりコミュートされたRefは、他のトランザクションから変更を受ける <em>かもしれない</em> 。 <em><strong>commute</strong></em>
+を使用して適用した関数は可換であるべきなのでこれは問題にならない。</p>
+</li>
+<li>
+<p>リーダーとコミューターはライター、コミューター、他のリーダーを決してブロックしない。</p>
+</li>
+<li>
+<p>ライターはコミューターもしくはリーダーを決してブロックしない。</p>
+</li>
+<li>
+<p>トランザクションはリトライが <em>行われる</em> のでトランザクション内でI/O等の副作用を伴う処理は避けるべきで、
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/io!">io!</a>
+マクロを使用することでトランザクション内で純粋ではない関数の使用を防ぐことが出来る。</p>
+</li>
+<li>
+<p>変更を受けているあるRefの値の正当性の制約が同時に <em>変更を受けていない</em> 別のRefの値に依存する場合、
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ensure">ensure</a>
+を使用して2つ目のRefを変更から保護することが出来る。 'ensure'
+されたRef(3つ目)は保護されるが、元のRef(2つ目)に対する変更は保護されない。</p>
+</li>
+<li>
+<p>Clojure MVCC STM
+パーシスタントなコレクションと共に良く動作するように設計されているため、Refの値にはClojureのコレクションを使用することが強く推奨される。STMのトランザクション内での処理は投機的であることから、コピーや変更のコストが低いことは必須であるためだ。パーシスタントなコレクションの場合、コピーのコストはゼロであり(不変であるため元のものを使用すれば良い)、
+'変更' は構造が効率的に共有される。いずれにせよ:</p>
+</li>
+<li>
+<p>Ref内の値は <em>イミュータブルである、もしくはイミュータブルとして扱われる必要がある</em> !!
+そうでない場合、Clojureがあなたの助けになることはない。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_例">例</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>この例ではユニークな数字(最初は昇順)を含むベクターに対する参照のベクターが作成される。そして複数のスレッドが起動し、繰り返しトランザクション内でランダムなベクターからランダムな位置を選択し入れ替えを行う。トランザクションを使用する以外には不可避な衝突を防ぐ工夫はしていない。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(defn run [nvecs nitems nthreads niters]
+  (let [vec-refs (vec (map (comp ref vec)
+                           (partition nitems (range (* nvecs nitems)))))
+        swap #(let [v1 (rand-int nvecs)
+                    v2 (rand-int nvecs)
+                    i1 (rand-int nitems)
+                    i2 (rand-int nitems)]
+                (dosync
+                 (let [temp (nth @(vec-refs v1) i1)]
+                   (alter (vec-refs v1) assoc i1 (nth @(vec-refs v2) i2))
+                   (alter (vec-refs v2) assoc i2 temp))))
+        report #(do
+                 (prn (map deref vec-refs))
+                 (println "Distinct:"
+                          (count (distinct (apply concat (map deref vec-refs))))))]
+    (report)
+    (dorun (apply pcalls (repeat nthreads #(dotimes [_ niters] (swap)))))
+    (report)))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>シャッフルの実行にあたって値の喪失や重複が起こらないことが確認出来る:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(run 100 10 10 100000)
+
+([0 1 2 3 4 5 6 7 8 9] [10 11 12 13 14 15 16 17 18 19] ...
+ [990 991 992 993 994 995 996 997 998 999])
+Distinct: 1000
+
+([382 318 466 963 619 22 21 273 45 596] [808 639 804 471 394 904 952 75 289 778] ...
+ [484 216 622 139 651 592 379 228 242 355])
+Distinct: 1000</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_関連する関数">関連する関数</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Refの作成:
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ref">ref</a></p>
+</div>
+<div class="paragraph">
+<p>Refの観測:
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/deref">deref</a>
+<em>( @ <a href="reader">reader</a> マクロも参照)</em></p>
+</div>
+<div class="paragraph">
+<p>トランザクションマクロ:
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/dosync">dosync</a>
+<a href="http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/io!">io!</a></p>
+</div>
+<div class="paragraph">
+<p>トランザクション内でのみ使用可能:
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ensure">ensure</a>
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ref-set">ref-set</a>
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/alter">alter</a>
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/commute">commute</a></p>
+</div>
+<div class="paragraph">
+<p>Refバリデーター:
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/set-validator!">set-validator!</a>
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/get-validator">get-validator</a></p>
+</div>
+</div>
+</div></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>

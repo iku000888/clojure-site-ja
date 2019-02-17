@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - 動的な開発</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>動的な開発</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_repl">REPL</a></li>
+<li><a href="#_基本">基本</a></li>
+<li><a href="#_動的なコンパイル">動的なコンパイル</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>第一に何よりもまず、Clojureは動的だ。それは、Clojureのプログラムはただコンパイルして実行するものではなく相互作用することが可能なものだということを意味する。Clojureは言語抽象ではなく環境であり、そこではほとんどすべての言語構造は具象化(reify)されているため、調べたり変更したりすることができる。これはプログラムを実行してその結果(または失敗)を調べてやり直すのとは大きく異なる体験につながる。とりわけ、データをロードし、機能を追加し、バグを修正し、テストをする、途切れることのない流れの中でプログラムを成長させていくことができる。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_repl">REPL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ClojureはJavaアプリケーションに組み込んだりスクリプト言語として利用したりすることもできるが、主要なプログラミングインターフェースはRead-Eval-Print-Loop(REPL)だ。これはコマンドを入力して実行し、結果を調べることができるシンプルなコンソールインターフェースだ。次のようにClojure
+REPLを起動して、この機能ツアーのサンプルを試していくことができる:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">java -cp clojure.jar clojure.main</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>こうすると次のようなプロンプトが得られる:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">user=&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>たいていのClojureコマンドは (コマンド 引数*) という形式をとる。試してみよう:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(def x 6)
+-&gt; #'user/x
+(def y 36)
+-&gt; #'user/y
+(+ x y)
+-&gt; 42</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_基本">基本</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Clojureには任意精度整数、文字列、有理数、倍精度浮動小数点数、文字、シンボル、キーワードがある。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(* 12345678 12345678)
+-&gt; 152415765279684
+"string"
+-&gt; "string"
+22/7
+-&gt; 22/7
+3.14159
+-&gt; 3.14159
+\a
+-&gt; \a
+'symbol
+-&gt; symbol
+:keyword
+-&gt; :keyword
+;a comment</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_動的なコンパイル">動的なコンパイル</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Clojureはコンパイルされる言語なので、いつコンパイラを実行しなければならないのか疑問に思うかもしれない。その必要はない。REPLに入力したものやload-fileでロードしたものは何でも直ちに自動的にJVMのバイトコードにコンパイルされる。事前にコンパイルすることも可能だが、必須ではない。</p>
+</div>
+</div>
+</div></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>

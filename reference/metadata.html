@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - Metadata</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>Metadata</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#__em_meta_em_obj">(<em>meta</em> obj)</a></li>
+<li><a href="#__em_with_meta_em_obj_map">(<em>with-meta</em> obj map)</a></li>
+<li><a href="#_metadata_reader_macros">Metadata Reader Macros</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Symbols and collections support metadata, a map of data <em>about</em> the symbol
+or collection. The metadata system allows for arbitrary annotation of
+data. It is used to convey information to the compiler about types, but can
+also be used by application developers for many purposes, annotating data
+sources, policy etc.</p>
+</div>
+<div class="paragraph">
+<p>An important thing to understand about metadata is that it is not considered
+to be part of the value of an object. As such, <em>metadata does not impact
+equality (or hash codes)</em>. Two objects that differ only in metadata are
+equal.</p>
+</div>
+<div class="paragraph">
+<p>That said, metadata and its relationship to an object is immutable - an
+object with different metadata is a different object. One consequence of
+this is that applying metadata to a lazy sequence will realize the head of
+the sequence so that both objects can share the same sequence.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="__em_meta_em_obj">(<em>meta</em> obj)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Returns the metadata of obj, returns nil if there is no metadata.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="__em_with_meta_em_obj_map">(<em>with-meta</em> obj map)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Returns an object of the same type and value as obj, with map as its
+metadata.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_metadata_reader_macros">Metadata Reader Macros</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In addition to with-meta, there are a number of reader macros
+(<a href="reader#macrochars">The Reader: Macro Characters</a>) for applying metadata
+to the expression following it:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>^{:doc "How obj works!"} obj</code> - Sets the metadata of obj to the provided
+map.  ** Equivalent to <code>(with-meta obj {:doc "How obj works!"})</code></p>
+</li>
+<li>
+<p><code>^:dynamic obj</code> - Sets the given keyword to true in the object&#8217;s metadata.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Equivalent to <code>^{:dynamic true} obj</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>^String obj</code> - Sets the value of :tag key in the object&#8217;s metadata.  <strong>
+Equivalent to <code>^{:tag java.lang.String} obj</code> </strong> Used to hint an objects type
+to the Clojure compiler. See <a href="java_interop#typehints">Java Interop: Type
+Hints</a> for more information and a complete list of special type hints.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is possible to add multiple pieces of metadata by chaining the metadata
+reader macros together.  For example: <code>^:dynamic ^ints obj</code> would apply both
+the :dynamic flag and ints type-hint to obj.</p>
+</div>
+</div>
+</div></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - 評価</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>評価</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div class="paragraph">
+<p>評価は様々なコンテキストで行われ得る:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>REPLでインタラクティブに</p>
+</li>
+<li>
+<p><code>load</code> / <code>load-file</code> / <code>load-reader</code> / `load-string`を通して読み込まれたフォームのシーケンスに対して</p>
+</li>
+<li>
+<p><code>eval</code> を通してプログラマティカルに</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Clojureのプログラムは式が組み合わさって成り立っている。スペシャルフォームやマクロで扱われない全てのフォームは、コンパイラによって値を作り出すために評価される。宣言やステートメントは存在しないが、副作用を起こす目的で式の評価を行い、値を無視することはある。全ての場合において評価は同じで、一つのオブジェクトがコンパイラに扱われ、評価され、値が戻される。式をコンパイルする必要がある場合はコンパイルされる。別のコンパイルのステップは存在せず、また定義された関数が解釈されることを心配する必要もない。
+<em>Clojure にインタプリタは存在しない</em> 。</p>
+</div>
+<div class="paragraph">
+<p>文字列、数字、 <code>true</code> 、 <code>false</code> 、 <code>nil</code> はそれら自身として評価される。</p>
+</div>
+<div class="paragraph">
+<p>以下の場合、シンボルは <em>解決される</em> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ネームスペースで修飾されている場合、値はそのシンボルが指すグローバルなvarの値となる。シンボルが指すグローバルなvarが存在しない、もしくはパブリックではない別のネームスペースのvarを指している場合はエラーとなる。</p>
+</li>
+<li>
+<p>パッケージ修飾されている場合、値はシンボルが指すJavaのクラスとなる。シンボルが指すクラスが存在しない場合はエラーとなる。</p>
+</li>
+<li>
+<p>それ以外の場合は修飾がなく、以下の最初のものが適用される:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>スペシャルフォームを指す場合、スペシャルフォームとして扱われ、そのように扱われる必要がある。</p>
+</li>
+<li>
+<p>現在のネームスペースにシンボルに対応するクラスが存在するかを確認するためルックアップが行われる。存在する場合、シンボルはJavaのクラスオブジェクトを指すものとして扱われる。クラス名は通常クラスオブジェクトを意味するが、特別に扱われるフォームが存在することに注意
+(例: '.' 及び 'new' )。</p>
+</li>
+<li>
+<p>ローカルスコープにおいては (つまりは、関数の定義内においては)、ローカルバインディングを指すかをルックアップが行われる(例
+関数の引数かletで束縛された名前)。ローカルバインディングを指す場合、値はローカルバインディングの名前となる。</p>
+</li>
+<li>
+<p>シンボルからvarへのマッピングの存在を現在のネームスペース内でルックアップする。存在する場合、値はシンボルに指されるvarのバインディングとなる。</p>
+</li>
+<li>
+<p>エラーとして扱われる。</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>シンボルにメタデータが含まれている場合、コンパイラがそれを使用する場合もあるが、結果の値には含まれない。</p>
+</div>
+<div class="paragraph">
+<p>ベクター、セット、マップはそれぞれの中にあるオブジェクトが <em>評価された後の値</em> を含むvector、  (hash) set、 map
+を返す。ベクターの要素は左から右へ評価されるが、セットとマップについては評価の順番が定義されていない。メタデータマップについても同様。ベクター、もしくはマップがメタデータを持つ場合、<em>評価後の</em>
+メタデータマップが結果の値のメタデータとなる。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure-repl" data-lang="clojure-repl">user=&gt; (def x 1)
+user=&gt; (def y 2)
+user=&gt; ^{:x x} [x y 3]
+^{:x 1} [1 2 3]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>空のリスト <code>()</code> は空のリストに評価される。</p>
+</div>
+<div class="paragraph">
+<p>空ではないリストはスペシャルフォーム、マクロ、関数への呼び出しとして扱われる。呼び出しの形式は (operator operands*) となる。</p>
+</div>
+<div class="paragraph">
+<p>スペシャルフォームはコアな操作を行う、Clojureに組み込まれているプリミティブなフォームである。呼び出しの演算子がスペシャルフォーム名前に解決される場合、呼び出しはそのスペシャルフォームに対する呼び出しとなる。各フォームについては
+<a href="special_forms">Special Forms</a> で触れている。</p>
+</div>
+<div class="paragraph">
+<p><a href="macros">Macros</a>
+はフォームを操作する関数で、文法の抽象化を可能にする。呼び出しの演算子がマクロ関数を指すグローバルなvarを指すシンボルである場合、そのマクロ関数が呼び出され、<em>評価する前</em>
+の被演算子フォームを渡される。マクロの戻り値はその後、その場で評価される。</p>
+</div>
+<div class="paragraph">
+<p>演算子がスペシャルフォームかマクロではない場合、呼び出しは関数に対するものとして扱われる。演算子、及び被演算子（存在する場合）は両方とも左から右へと評価される。演算子の評価の結果がIFn(Clojureの関数を表現するインターフェース)にキャストされ,invoke()がそれに対して引数を渡した上で呼び出される。invoke()の戻り値が呼び出した式の値となる。関数呼び出しにメタデータが存在する場合、コンパイラーに使用される場合があるが、結果の値には含まれることはない。
+<a href="special_forms">Special Forms</a>
+にあるように、スペシャルフォームとマクロは通常とは異なる引数の評価の仕方をする場合がある点に注意。</p>
+</div>
+<div class="paragraph">
+<p>上記で触れられている以外のオブジェクトは全て自分自身に評価される。</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>(<em>load</em> classpath-resource &#8230;&#8203;)</strong><br>
+<strong>(<em>load-file</em> filename)</strong><br>
+<strong>(<em>load-reader</em> reader)</strong><br>
+<strong>(<em>load-string</em> string)</strong></p>
+</div>
+<div class="paragraph">
+<p>上記は単一のフォームの評価を記述している。各種ロードフォームはソースに含まれるフォームを逐次的に読み込み評価する。そのようなフォームは一般的にはグローバルな環境に対する副作用を伴い、関数の定義等を行う。</p>
+</div>
+<div class="paragraph">
+<p>ロード関数は一時的なコンテキストで実行され、 *ns*
+には新しいバインディングが付与される。これが意味するところは、フォームがvarに対して影響を持つ場合、(e.g. in-namespace
+)、その効果の発現はロードの完了の際に起こる。load 等は最後の式によって作成された値を返す。</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>(<em>eval</em> form)</strong></p>
+</div>
+<div class="paragraph">
+<p>フォームの <em>データ構造</em> (テキストではない!) を評価し、結果を返す。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(eval (list + 1 2 3))
+-&gt; 6</code></pre>
+</div>
+</div></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>

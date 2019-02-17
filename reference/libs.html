@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Clojure - ライブラリの使用</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clojure の日本語ドキュメントです">
+    <meta name="author" content="Japan Clojurians">
+    <meta name="keywords" content="Clojure 日本語">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/normalize.css" rel="stylesheet">
+    <link href="../css/webflow.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/clojure-logo-icon-32.png">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">Clojure</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../about/rationale.html">概要</a></li>
+            <li><a href="../reference/documentation">リファレンス</a></li>
+            <!-- <li><a href="../api/api.html">API</a></li>
+              <li><a href="../community/downloads.html">リリース</a></li>
+              <li><a href="../guides/guides.html">ガイド</a></li>
+              <li><a href="../community/resources.html">コミュニティ</a></li>
+              <li><a href="../news/news.html">ニュース</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+              </ul>
+              </li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+<div class="page-header">
+  <h1>ライブラリの使用</h1>
+</div>
+
+<p><em></em></p>
+
+<p><div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_libの規約">Libの規約</a></li>
+<li><a href="#_libの例">Libの例</a></li>
+<li><a href="#_プレフィックスリスト">プレフィックスリスト</a></li>
+<li><a href="#_関連する関数">関連する関数</a></li>
+<li><a href="#order">Libのロード順</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Clojureはコードローディングと依存関係の追跡のための "lib"
+機構を提供している。libとはクラスパス内のJavaリソースに存在する、単一の名前ついたClojureソースコードである。libは一般的に、一つのClojureネームスペースの完全な定義を提供する。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_libの規約">Libの規約</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Clojureはlibの命名と構成における規約を定義している:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>libの名前は通常ふたつ以上のピリオドで区切られたシンボルである。</p>
+</li>
+<li>
+<p>lib は Java のリソースとして、 lib の名前から導出されたクラスパスに対して相対的なパスに格納される:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>パスは文字列</p>
+</li>
+<li>
+<p>lib名のピリオドはパスではスラッシュで置換される</p>
+</li>
+<li>
+<p>lib名のハイフンはパスではアンダースコアで置換される</p>
+</li>
+<li>
+<p>パスの拡張子には ".class"、 ".clj"、 もしくは ".cljc" を使用することが出来る。(以下の <a href="libs#order">Lib
+load order</a> を参照)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>libは以下を行う "ns" フォームで始まる:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>libと同じ名前のClojureネームスペースの作成</p>
+</li>
+<li>
+<p>Javaのクラス、Clojureのコア機構、他のlib等に対する依存関係の宣言</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Clojureは "ns"
+に対する呼び出しが例外無しで完了した場合、宣言された依存関係は満たされており、それらが提供する機能は使用可能であることを保証する。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_libの例">Libの例</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>単純なlib:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(ns com.my-company.clojure.examples.my-utils
+  (:import java.util.Date)
+  (:use [clojure.string :only (join)])
+  (:require [clojure.java.io :as jio]))</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ns</code>
+フォームがlibのネームスペースに名前を付けるとともに依存関係の宣言を行う。このlibは通常名前によって相対クラスパスのパスに存在するソースファイルに定義される:
+com/my_company/clojure/examples/my_utils.clj
+(ピリオドからスラッシュ、ハイフンからアンダースコアへの変換に注意)。</p>
+</li>
+<li>
+<p><code>:import</code> 句でこのlibが <code>java.util.Date</code>
+を使用していることを宣言し、このlibのコード内において名前の装飾無しで使用することが可能になる。</p>
+</li>
+<li>
+<p><code>:use</code> 句は <code>clojure.string</code> ライブラリの <code>join</code>
+関数のみに対するして依存関係を宣言している。このライブラリ中のコードでは join を修飾無しで使用することが出来る。</p>
+</li>
+<li>
+<p><code>:require</code> 句は <code>clojure.java.io</code> ライブラリ内の関数に対する依存関係を宣言し、それらを省略したネームスペースエイリアス
+<code>jio</code> を使用して呼び出すことが出来る。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_プレフィックスリスト">プレフィックスリスト</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Libが名前のプレフィックスを共有する複数のライブラリに依存することは一般的であり、 <code>require</code> と <code>use</code> (及び ns
+フォームにおける <code>:require</code> と <code>:use</code> 句)
+に対する呼び出しにおいて共通のプレフィックスを取り出し、一度だけ指定することが出来る。例えば以下の2つのフォームは同義になる:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-clojure" data-lang="clojure">(require 'clojure.contrib.def 'clojure.contrib.except 'clojure.contrib.sql)
+(require '(clojure.contrib def except sql))</code></pre>
+</div>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_関連する関数">関連する関数</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ネームスペースの作成:
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/ns">ns</a></p>
+</div>
+<div class="paragraph">
+<p>libがロードされたことを保証する:
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/require">require</a>
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/use">use</a></p>
+</div>
+<div class="paragraph">
+<p>ロードされたlibsの一覧:
+<a href="https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/loaded-libs">loaded-libs</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="order">Libのロード順</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Libはコンパイル後 (<code>.class</code>) もしくはソース (<code>.clj</code> or <code>.cljc</code>)
+の形式で存在しうる。クラスパス上に一つ、もしくはそれら全てが存在する可能性があり、以下のルールでその中の一つからLibがロードされる:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>.class</code> ファイルはソースのタイムスタンプが <code>.class</code>
+のファイルより新しくない限り、常にソースファイルより優先される。ソースファイルのタイムスタンプの方が新しい場合はソースファイルが優先される。</p>
+</li>
+<li>
+<p>常に <code>.clj</code> (プラットフォーム特定のファイル) は常に <code>.cljc</code> より優先される(プラットフォーム間で共通)。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>２つ目のルールは、ライブラリの作者がポータブルな共通の定義と、ホストプラットフォームを活かしたプラットフォーム固有の処理の上書きを同時に配布することを可能にする。</p>
+</div>
+</div>
+</div></p>
+
+<hr />
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>
